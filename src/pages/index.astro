@@ -1,251 +1,331 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const projects = [
+const demos = [
   {
     name: 'Top Ink',
-    type: 'Crecimiento digital',
-    text: 'Landing comercial orientada a adquisicion, estructura de oferta, confianza visual y base para campanas de Google Ads y Meta.',
-    stack: ['HTML', 'CSS', 'JavaScript', 'Marketing'],
-    href: 'https://github.com/amtz-dev/topink-landing_1',
+    type: 'Landing + campanas',
+    live: 'https://amtz-dev.github.io/topink-landing_1/',
+    repo: 'https://github.com/amtz-dev/topink-landing_1',
+    text: 'Oferta visual, estructura de conversion y base para medicion de Google Ads y Meta.',
+    tags: ['HTML', 'CSS', 'JS', 'Ads'],
   },
   {
     name: 'Impermeables Cliente',
-    type: 'Arquitectura web',
-    text: 'Sitio para venta de servicios con enfoque en conversion, lectura rapida, propuesta de valor y crecimiento por campanas.',
-    stack: ['HTML', 'CSS', 'JavaScript', 'SEO'],
-    href: 'https://github.com/mrzlabs/web-impermeables-cliente',
+    type: 'Web comercial',
+    live: 'https://mrzlabs.github.io/web-impermeables-cliente/',
+    repo: 'https://github.com/mrzlabs/web-impermeables-cliente',
+    text: 'Pagina orientada a captar clientes, explicar servicios y crecer con trafico pago.',
+    tags: ['Frontend', 'SEO', 'Copy', 'UX'],
   },
   {
-    name: 'GAS Starter',
-    type: 'Template Apps Script',
-    text: 'Base publica para automatizaciones con Google Apps Script, estructura reutilizable, despliegue y convenciones tecnicas.',
-    stack: ['Apps Script', 'clasp', 'JavaScript', 'Git'],
-    href: 'https://github.com/mrzlabs/tpl-mrz-gas-starter',
-  },
-  {
-    name: 'GAS Utils',
-    type: 'Libreria operativa',
-    text: 'Utilidades genericas para validar datos, procesar hojas, normalizar registros y sostener flujos internos repetibles.',
-    stack: ['Apps Script', 'Sheets', 'Utils', 'Data'],
-    href: 'https://github.com/mrzlabs/lib-mrz-gas-utils',
-  },
-  {
-    name: 'Asesorias Seguridad Social',
-    type: 'Landing profesional',
-    text: 'Pagina publica para servicio profesional, con jerarquia de contenido, estructura comercial y comunicacion directa.',
-    stack: ['HTML', 'CSS', 'Frontend', 'Copy'],
-    href: 'https://github.com/mrzlabs/asesorias-seguridad-social',
+    name: 'Apps Script Starter',
+    type: 'Template tecnico',
+    live: '',
+    repo: 'https://github.com/mrzlabs/tpl-mrz-gas-starter',
+    text: 'Base reutilizable para automatizaciones, endpoints ligeros y flujos conectados a datos.',
+    tags: ['Apps Script', 'clasp', 'Git', 'API'],
   },
 ];
 
-const capabilities = [
-  {
-    area: 'Frontend',
-    items: ['Astro', 'HTML', 'CSS', 'JavaScript', 'UX funcional'],
-  },
-  {
-    area: 'Automatizacion',
-    items: ['Apps Script', 'Sheets', 'APIs REST', 'jobs programados', 'validacion de datos'],
-  },
-  {
-    area: 'Datos',
-    items: ['modelado tabular', 'dashboards', 'Looker Studio', 'KPIs', 'normalizacion'],
-  },
-  {
-    area: 'Infraestructura',
-    items: ['GitHub', 'Docker base', 'variables', 'ambientes', 'documentacion tecnica'],
-  },
-  {
-    area: 'Crecimiento',
-    items: ['Google Ads', 'Meta Ads', 'funnels', 'landing pages', 'medicion'],
-  },
-  {
-    area: 'Arquitectura',
-    items: ['procesos', 'integraciones', 'soporte', 'seguridad basica', 'escalabilidad'],
-  },
+const matrix = [
+  ['Frontend', 'Astro, HTML, CSS, JavaScript, responsive UI, componentes, accesibilidad base'],
+  ['Backend', 'Apps Script Web Apps, APIs REST, Node base, endpoints, validacion de payloads'],
+  ['Datos', 'SQL, PostgreSQL, Sheets como backend operativo, normalizacion, KPIs, Looker Studio'],
+  ['IA y LLMs', 'prompts, flujos asistidos, clasificacion, soporte, resumentes, copilotos internos'],
+  ['Infraestructura', 'GitHub, ramas, despliegues estaticos, Docker base, variables, ambientes'],
+  ['Shell', 'PowerShell, comandos Git, automatizacion local, scripts de ejecucion y soporte'],
+  ['Crecimiento', 'Google Ads, Meta Ads, landing pages, medicion, embudos, optimizacion'],
+  ['CRM', 'pipeline, seguimiento, estados, tickets, handoff, trazabilidad y reportes'],
 ];
 
-const stackRows = [
-  ['Lenguajes', 'JavaScript, HTML, CSS, SQL base, Apps Script'],
-  ['Web', 'Astro, sitios estaticos, landings comerciales, estructura responsive'],
-  ['Datos', 'Sheets, modelado operativo, Looker Studio, KPIs, reportes'],
-  ['Backend ligero', 'Apps Script Web Apps, endpoints, integraciones REST'],
-  ['Infraestructura', 'GitHub, Docker conceptual, variables de entorno, despliegue estatico'],
-  ['Marketing tecnico', 'Google Ads, Meta Ads, embudos, medicion y optimizacion'],
+const codeTabs = [
+  {
+    id: 'js',
+    label: 'JavaScript',
+    title: 'Interaccion aplicada',
+    code: `const lead = {
+  source: 'meta_ads',
+  stage: 'nuevo',
+  score: 82
+};
+
+const routeLead = (lead) => {
+  if (lead.score >= 80) return 'asesor_comercial';
+  if (lead.source === 'google_ads') return 'remarketing';
+  return 'nutricion';
+};`,
+  },
+  {
+    id: 'sql',
+    label: 'SQL',
+    title: 'Lectura de negocio',
+    code: `select
+  campaign,
+  count(*) as leads,
+  round(avg(score), 2) as avg_score
+from crm_leads
+where created_at >= current_date - interval '30 days'
+group by campaign
+order by leads desc;`,
+  },
+  {
+    id: 'sh',
+    label: 'Shell',
+    title: 'Operacion tecnica',
+    code: `git status
+npm run build
+docker compose up -d
+curl -X POST "$WEBHOOK_URL" \\
+  -H "Content-Type: application/json" \\
+  -d '{"event":"deploy_ok"}'`,
+  },
+  {
+    id: 'llm',
+    label: 'LLM',
+    title: 'Asistente interno',
+    code: `system: Clasifica solicitudes de soporte.
+input: "Necesito estado de mi proceso"
+output:
+{
+  "intent": "consulta_estado",
+  "priority": "media",
+  "handoff": "asesor"
+}`,
+  },
 ];
 ---
 
 <Layout
-  title="Andres Martinez | Soluciones corporativas y crecimiento digital"
-  description="Portafolio de Andres Martinez: desarrollo web, automatizacion, datos, arquitectura operativa y crecimiento digital."
+  title="Andres Martinez | Ingenieria, CRM, LLMs y crecimiento"
+  description="Portafolio de Andres Martinez con demos, CRM, LLMs, SQL, Shell, PostgreSQL, frontend, automatizacion y crecimiento digital."
 >
-  <main class="page">
+  <main class="site">
+    <div class="cursor-orb" aria-hidden="true">
+      <span>MRZ</span>
+    </div>
+
     <section class="hero" aria-labelledby="hero-title">
-      <nav class="topbar" aria-label="Navegacion principal">
+      <nav class="nav" aria-label="Navegacion principal">
         <a class="brand" href="/">
           <span>MRZ</span>
           <strong>Labs</strong>
         </a>
         <div class="nav-links">
-          <a href="#capacidad">Capacidad</a>
-          <a href="#proyectos">Proyectos</a>
-          <a href="#stack">Stack</a>
+          <a href="#demos">Demos</a>
+          <a href="#toolbox">Toolbox</a>
+          <a href="#lab">Lab</a>
           <a href="https://github.com/mrzlabs">GitHub</a>
         </div>
       </nav>
 
       <div class="hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow">Dev personal orientado a negocio</p>
-          <h1 id="hero-title">Creo sistemas que conectan operacion, datos y crecimiento.</h1>
-          <p class="lead">
-            Desarrollo soluciones corporativas desde la arquitectura del proceso hasta la ejecucion tecnica: web, automatizacion, bases de datos, integraciones, dashboards y campanas digitales.
+          <p class="eyebrow">Desarrollo corporativo + crecimiento digital</p>
+          <h1 id="hero-title">Construyo sistemas, no solo paginas.</h1>
+          <p>
+            Arquitecto soluciones con frontend, CRM, automatizacion, datos, SQL, PostgreSQL, Shell, APIs, LLMs, dashboards y campanas de adquisicion.
           </p>
         </div>
 
-        <aside class="signal-panel" aria-label="Diferencial tecnico">
-          <div class="panel-head">
-            <span>MRZ Labs</span>
-            <strong>Soluciones con criterio de crecimiento</strong>
+        <div class="command-card" aria-label="Terminal visual">
+          <div class="terminal-head">
+            <span></span>
+            <span></span>
+            <span></span>
           </div>
-          <div class="signal-grid">
-            <span>Web</span>
-            <span>Data</span>
-            <span>Ads</span>
-            <span>APIs</span>
-            <span>CRM</span>
-            <span>Dash</span>
-            <span>Ops</span>
-            <span>UX</span>
-            <span>DB</span>
-          </div>
-        </aside>
+          <pre><code>mrz@labs:~$ build solution
+scope: crm + landing + ads + data
+stack: js sql shell postgres llm
+status: deployable</code></pre>
+        </div>
       </div>
     </section>
 
-    <section id="capacidad" class="capability-band" aria-label="Capacidad profesional">
-      <article>
-        <span>01</span>
-        <h2>Arquitectura</h2>
-        <p>Traduzco problemas de negocio en flujos, datos, pantallas, automatizaciones y reglas claras de operacion.</p>
-      </article>
-      <article>
-        <span>02</span>
-        <h2>Ejecucion</h2>
-        <p>Construyo web, scripts, integraciones y tableros con estructura mantenible y control de versiones.</p>
-      </article>
-      <article>
-        <span>03</span>
-        <h2>Crecimiento</h2>
-        <p>Conecto landing, medicion, Google Ads, Meta Ads y contenido para convertir trafico en oportunidades.</p>
-      </article>
+    <section class="tabs-shell" aria-label="Vista por pestanas">
+      <div class="tabs" role="tablist" aria-label="Secciones principales">
+        <button class="tab is-active" type="button" data-tab="vision">Vision</button>
+        <button class="tab" type="button" data-tab="engineering">Ingenieria</button>
+        <button class="tab" type="button" data-tab="growth">Crecimiento</button>
+      </div>
+      <div class="tab-panels">
+        <article class="tab-panel is-active" data-panel="vision">
+          <strong>Capacidad completa</strong>
+          <p>Detecto el problema, diseno el flujo, modelo los datos, construyo la interfaz, conecto la automatizacion y dejo medicion para mejorar.</p>
+        </article>
+        <article class="tab-panel" data-panel="engineering">
+          <strong>Criterio senior</strong>
+          <p>Trabajo con separacion de ambientes, control de versiones, estructura mantenible, payloads claros, logs utiles, seguridad basica y despliegue repetible.</p>
+        </article>
+        <article class="tab-panel" data-panel="growth">
+          <strong>Negocio medible</strong>
+          <p>Una landing sin campana ni medicion queda incompleta. Conecto Google Ads, Meta, formularios, CRM y tablero para tomar decisiones.</p>
+        </article>
+      </div>
     </section>
 
-    <section class="section-block" aria-labelledby="system-title">
+    <section id="demos" class="section demos-section" aria-labelledby="demos-title">
       <div class="section-head">
-        <p class="eyebrow">Mapa de solucion</p>
-        <h2 id="system-title">Del requerimiento al sistema</h2>
-      </div>
-      <div class="blueprint">
-        <div>
-          <strong>Entrada</strong>
-          <span>Problema, proceso, audiencia, datos disponibles.</span>
-        </div>
-        <div>
-          <strong>Arquitectura</strong>
-          <span>Flujos, modelo de datos, pantallas, eventos y automatizaciones.</span>
-        </div>
-        <div>
-          <strong>Implementacion</strong>
-          <span>Frontend, Apps Script, API, dashboard, repositorio y despliegue.</span>
-        </div>
-        <div>
-          <strong>Crecimiento</strong>
-          <span>Campanas, medicion, conversion, mejora continua y soporte.</span>
-        </div>
-      </div>
-    </section>
-
-    <section id="proyectos" class="section-block dark-block" aria-labelledby="projects-title">
-      <div class="section-head">
-        <p class="eyebrow">Casos publicos</p>
-        <h2 id="projects-title">Proyectos</h2>
+        <p class="eyebrow">Proyectos publicados</p>
+        <h2 id="demos-title">Demos visibles</h2>
       </div>
 
-      <div class="project-grid">
-        {projects.map((project) => (
-          <article class="project-card">
-            <div class="card-top">
-              <span>{project.type}</span>
-              <a href={project.href} aria-label={`Abrir ${project.name} en GitHub`}>Repositorio</a>
+      <div class="demo-grid">
+        {demos.map((demo) => (
+          <article class="demo-card">
+            <div class="demo-frame">
+              {demo.live ? (
+                <iframe src={demo.live} title={`Demo ${demo.name}`} loading="lazy"></iframe>
+              ) : (
+                <div class="empty-demo">
+                  <strong>Template tecnico</strong>
+                  <span>Repositorio sin demo visual. Codigo listo para reutilizar.</span>
+                </div>
+              )}
             </div>
-            <h3>{project.name}</h3>
-            <p>{project.text}</p>
-            <ul>
-              {project.stack.map((item) => <li>{item}</li>)}
-            </ul>
+            <div class="demo-body">
+              <span>{demo.type}</span>
+              <h3>{demo.name}</h3>
+              <p>{demo.text}</p>
+              <ul>
+                {demo.tags.map((tag) => <li>{tag}</li>)}
+              </ul>
+              <div class="demo-actions">
+                {demo.live && <a href={demo.live}>Ver demo</a>}
+                <a href={demo.repo}>Repositorio</a>
+              </div>
+            </div>
           </article>
         ))}
       </div>
     </section>
 
-    <section id="stack" class="section-block" aria-labelledby="stack-title">
+    <section id="toolbox" class="section toolbox-section" aria-labelledby="toolbox-title">
       <div class="section-head">
-        <p class="eyebrow">Amplitud tecnica</p>
-        <h2 id="stack-title">Stack y criterio</h2>
+        <p class="eyebrow">Skills & tools</p>
+        <h2 id="toolbox-title">Toolbox de ingenieria</h2>
       </div>
-
-      <div class="stack-table">
-        {stackRows.map(([label, value]) => (
-          <div>
-            <strong>{label}</strong>
+      <div class="matrix">
+        {matrix.map(([area, value]) => (
+          <div class="matrix-row">
+            <strong>{area}</strong>
             <span>{value}</span>
           </div>
         ))}
       </div>
     </section>
 
-    <section class="section-block capability-grid-section" aria-labelledby="capabilities-title">
+    <section id="lab" class="section lab-section" aria-labelledby="lab-title">
       <div class="section-head">
-        <p class="eyebrow">Cobertura</p>
-        <h2 id="capabilities-title">Areas que conecto</h2>
+        <p class="eyebrow">Mini demos aplicadas</p>
+        <h2 id="lab-title">Lenguajes en contexto</h2>
       </div>
 
-      <div class="capability-grid">
-        {capabilities.map((group) => (
-          <article>
-            <h3>{group.area}</h3>
-            <ul>
-              {group.items.map((item) => <li>{item}</li>)}
-            </ul>
-          </article>
-        ))}
+      <div class="lab-grid">
+        <div class="code-tabs" role="tablist" aria-label="Ejemplos de codigo">
+          {codeTabs.map((item, index) => (
+            <button class:list={['code-tab', { 'is-active': index === 0 }]} type="button" data-code={item.id}>
+              {item.label}
+            </button>
+          ))}
+        </div>
+        <div class="code-window">
+          {codeTabs.map((item, index) => (
+            <article class:list={['code-panel', { 'is-active': index === 0 }]} data-code-panel={item.id}>
+              <span>{item.title}</span>
+              <pre><code>{item.code}</code></pre>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   </main>
 </Layout>
 
+<script>
+  const cursor = document.querySelector('.cursor-orb');
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let orbX = mouseX;
+  let orbY = mouseY;
+
+  window.addEventListener('pointermove', (event) => {
+    mouseX = event.clientX;
+    mouseY = event.clientY;
+  });
+
+  const moveOrb = () => {
+    orbX += (mouseX - orbX) * 0.16;
+    orbY += (mouseY - orbY) * 0.16;
+    if (cursor) {
+      cursor.style.transform = `translate3d(${orbX}px, ${orbY}px, 0)`;
+    }
+    requestAnimationFrame(moveOrb);
+  };
+  moveOrb();
+
+  document.querySelectorAll('[data-tab]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const target = button.getAttribute('data-tab');
+      document.querySelectorAll('[data-tab]').forEach((item) => item.classList.remove('is-active'));
+      document.querySelectorAll('[data-panel]').forEach((item) => item.classList.remove('is-active'));
+      button.classList.add('is-active');
+      document.querySelector(`[data-panel="${target}"]`)?.classList.add('is-active');
+    });
+  });
+
+  document.querySelectorAll('[data-code]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const target = button.getAttribute('data-code');
+      document.querySelectorAll('[data-code]').forEach((item) => item.classList.remove('is-active'));
+      document.querySelectorAll('[data-code-panel]').forEach((item) => item.classList.remove('is-active'));
+      button.classList.add('is-active');
+      document.querySelector(`[data-code-panel="${target}"]`)?.classList.add('is-active');
+    });
+  });
+</script>
+
 <style>
-  .page {
+  .site {
     min-height: 100vh;
-    overflow: hidden;
+    background: #090b10;
+    color: #f4efe5;
+    overflow-x: hidden;
+  }
+
+  .cursor-orb {
+    position: fixed;
+    top: -24px;
+    left: -24px;
+    z-index: 20;
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(255, 198, 92, 0.72);
+    border-radius: 50%;
+    background: rgba(255, 198, 92, 0.16);
+    color: #ffc65c;
+    font-size: 0.68rem;
+    font-weight: 900;
+    pointer-events: none;
+    mix-blend-mode: screen;
   }
 
   .hero {
     min-height: 92vh;
     display: flex;
     flex-direction: column;
-    padding: 26px clamp(18px, 4vw, 68px) 54px;
+    padding: 26px clamp(18px, 5vw, 72px) 72px;
     background:
-      linear-gradient(90deg, rgba(19, 22, 27, 0.94), rgba(19, 22, 27, 0.76)),
-      repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 88px),
-      repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.06) 0 1px, transparent 1px 88px),
-      #15181f;
-    color: #f7f2e9;
+      radial-gradient(circle at 80% 20%, rgba(78, 103, 255, 0.24), transparent 28%),
+      linear-gradient(90deg, rgba(9, 11, 16, 0.96), rgba(9, 11, 16, 0.78)),
+      repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 96px),
+      repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.06) 0 1px, transparent 1px 96px),
+      #090b10;
   }
 
-  .topbar {
+  .nav {
     min-height: 54px;
     display: flex;
     align-items: center;
@@ -253,58 +333,50 @@ const stackRows = [
     gap: 22px;
   }
 
-  .brand {
-    display: inline-flex;
-    align-items: baseline;
-    gap: 6px;
+  .brand,
+  .nav a,
+  .demo-actions a {
     color: inherit;
-    font-size: 1rem;
-    font-weight: 900;
     text-decoration: none;
   }
 
-  .brand span {
-    color: #f0b13e;
+  .brand {
+    display: inline-flex;
+    gap: 6px;
+    font-weight: 900;
   }
 
-  .brand strong {
-    font-weight: 900;
+  .brand span,
+  .eyebrow,
+  .demo-body > span {
+    color: #ffc65c;
   }
 
   .nav-links {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
-    color: rgba(247, 242, 233, 0.72);
+    color: rgba(244, 239, 229, 0.7);
     font-size: 0.92rem;
-  }
-
-  .nav-links a {
-    text-decoration: none;
-  }
-
-  .nav-links a:hover {
-    color: #f7f2e9;
   }
 
   .hero-grid {
     flex: 1;
     width: 100%;
-    max-width: 1240px;
+    max-width: 1280px;
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(300px, 470px);
     align-items: center;
-    gap: clamp(34px, 6vw, 96px);
+    gap: clamp(32px, 6vw, 96px);
     margin: 0 auto;
   }
 
   .hero-copy {
-    max-width: 850px;
+    max-width: 980px;
   }
 
   .eyebrow {
-    margin: 0 0 16px;
-    color: #f0b13e;
+    margin: 0 0 18px;
     font-size: 0.78rem;
     font-weight: 900;
     letter-spacing: 0.12em;
@@ -319,10 +391,9 @@ const stackRows = [
   }
 
   h1 {
-    max-width: 980px;
-    margin-bottom: 24px;
-    font-size: clamp(3rem, 7.4vw, 7.8rem);
-    line-height: 0.9;
+    margin-bottom: 26px;
+    font-size: clamp(3.2rem, 8vw, 8.4rem);
+    line-height: 0.86;
     letter-spacing: 0;
   }
 
@@ -335,271 +406,266 @@ const stackRows = [
 
   h3 {
     margin-bottom: 12px;
-    font-size: 1.24rem;
+    font-size: 1.26rem;
   }
 
-  .lead {
+  .hero-copy p:not(.eyebrow) {
     max-width: 760px;
-    color: rgba(247, 242, 233, 0.78);
-    font-size: clamp(1.05rem, 2vw, 1.36rem);
+    color: rgba(244, 239, 229, 0.76);
+    font-size: clamp(1.08rem, 2vw, 1.38rem);
     line-height: 1.48;
   }
 
-  .signal-panel {
-    min-height: 520px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 28px;
-    background: #f7f2e9;
-    color: #171717;
-    border: 1px solid rgba(255, 255, 255, 0.18);
+  .command-card {
+    padding: 22px;
+    background: #f4efe5;
+    color: #101219;
     border-radius: 8px;
-    box-shadow: 22px 22px 0 rgba(240, 177, 62, 0.9);
+    box-shadow: 22px 22px 0 #ffc65c;
   }
 
-  .panel-head span,
-  .panel-head strong {
-    display: block;
+  .terminal-head {
+    display: flex;
+    gap: 7px;
+    margin-bottom: 18px;
   }
 
-  .panel-head span {
-    margin-bottom: 10px;
-    color: #8c3c22;
-    font-weight: 900;
+  .terminal-head span {
+    width: 10px;
+    height: 10px;
+    background: #101219;
+    border-radius: 50%;
   }
 
-  .panel-head strong {
-    font-size: clamp(1.7rem, 3vw, 2.7rem);
-    line-height: 0.98;
+  pre {
+    margin: 0;
+    overflow: auto;
+    font-size: 0.95rem;
+    line-height: 1.6;
   }
 
-  .signal-grid {
+  .tabs-shell,
+  .section {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 82px clamp(18px, 5vw, 72px);
+  }
+
+  .tabs-shell {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .tabs,
+  .code-tabs {
+    display: grid;
     gap: 10px;
   }
 
-  .signal-grid span {
-    aspect-ratio: 1;
-    display: grid;
-    place-items: center;
-    background: #171717;
-    color: #f7f2e9;
+  button {
+    font: inherit;
+  }
+
+  .tab,
+  .code-tab {
+    min-height: 48px;
+    padding: 12px 16px;
+    border: 1px solid rgba(244, 239, 229, 0.16);
+    background: #141821;
+    color: rgba(244, 239, 229, 0.72);
     border-radius: 8px;
-    font-size: 0.92rem;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .tab.is-active,
+  .code-tab.is-active {
+    background: #ffc65c;
+    color: #101219;
     font-weight: 900;
   }
 
-  .capability-band {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    background: #f0b13e;
-    border-bottom: 1px solid #171717;
+  .tab-panels {
+    min-height: 220px;
+    padding: 30px;
+    background: #141821;
+    border: 1px solid rgba(244, 239, 229, 0.16);
+    border-radius: 8px;
   }
 
-  .capability-band article {
-    min-height: 230px;
-    padding: 32px clamp(20px, 3vw, 44px);
-    border-right: 1px solid rgba(23, 23, 23, 0.28);
+  .tab-panel,
+  .code-panel {
+    display: none;
   }
 
-  .capability-band article:last-child {
-    border-right: 0;
-  }
-
-  .capability-band span {
+  .tab-panel.is-active,
+  .code-panel.is-active {
     display: block;
-    margin-bottom: 24px;
-    font-weight: 900;
   }
 
-  .capability-band h2 {
-    margin-bottom: 16px;
-    font-size: clamp(1.9rem, 3vw, 3rem);
+  .tab-panel strong {
+    display: block;
+    margin-bottom: 18px;
+    font-size: clamp(2rem, 4vw, 4rem);
+    line-height: 1;
   }
 
-  .capability-band p {
-    max-width: 360px;
-    color: rgba(23, 23, 23, 0.72);
-    line-height: 1.5;
-  }
-
-  .section-block {
-    max-width: 1240px;
-    margin: 0 auto;
-    padding: 86px clamp(18px, 4vw, 68px);
+  .tab-panel p {
+    max-width: 780px;
+    color: rgba(244, 239, 229, 0.74);
+    font-size: 1.08rem;
+    line-height: 1.55;
   }
 
   .section-head {
     display: grid;
-    grid-template-columns: minmax(160px, 260px) minmax(0, 1fr);
+    grid-template-columns: minmax(180px, 280px) minmax(0, 1fr);
     align-items: end;
     gap: 30px;
-    margin-bottom: 38px;
+    margin-bottom: 40px;
   }
 
-  .blueprint {
+  .demo-grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    border: 1px solid #d1c6b6;
-    border-radius: 8px;
+    gap: 18px;
+  }
+
+  .demo-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
+    min-height: 420px;
     overflow: hidden;
-  }
-
-  .blueprint div {
-    min-height: 220px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 24px;
-    background: #fffaf0;
-    border-right: 1px solid #d1c6b6;
-  }
-
-  .blueprint div:last-child {
-    border-right: 0;
-  }
-
-  .blueprint strong {
-    font-size: 1.12rem;
-  }
-
-  .blueprint span {
-    color: #5d5960;
-    line-height: 1.5;
-  }
-
-  .dark-block {
-    max-width: none;
-    background: #171717;
-    color: #f7f2e9;
-  }
-
-  .dark-block > .section-head,
-  .dark-block > .project-grid {
-    max-width: 1240px;
-    margin-right: auto;
-    margin-left: auto;
-  }
-
-  .project-grid {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(220px, 1fr));
-    gap: 14px;
-    overflow-x: auto;
-    padding-bottom: 4px;
-  }
-
-  .project-card {
-    min-height: 360px;
-    display: flex;
-    flex-direction: column;
-    padding: 22px;
-    background: #24272f;
-    border: 1px solid rgba(247, 242, 233, 0.16);
+    background: #141821;
+    border: 1px solid rgba(244, 239, 229, 0.16);
     border-radius: 8px;
   }
 
-  .card-top {
-    min-height: 40px;
+  .demo-frame {
+    min-height: 420px;
+    background: #0d1017;
+  }
+
+  .demo-frame iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 420px;
+    border: 0;
+    background: #fff;
+    transform-origin: top left;
+  }
+
+  .empty-demo {
+    height: 100%;
+    display: grid;
+    place-content: center;
+    gap: 12px;
+    padding: 24px;
+    text-align: center;
+    color: rgba(244, 239, 229, 0.74);
+  }
+
+  .demo-body {
     display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    margin-bottom: 30px;
-    color: rgba(247, 242, 233, 0.68);
-    font-size: 0.84rem;
+    flex-direction: column;
+    padding: 26px;
   }
 
-  .card-top a {
-    color: #f0b13e;
-    font-weight: 900;
-    text-decoration: none;
-  }
-
-  .project-card p {
-    color: rgba(247, 242, 233, 0.7);
+  .demo-body p,
+  .matrix-row span,
+  .code-panel span {
+    color: rgba(244, 239, 229, 0.72);
     line-height: 1.55;
   }
 
-  .project-card ul,
-  .capability-grid ul {
-    margin: auto 0 0;
+  .demo-body ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: auto 0 24px;
     padding: 0;
     list-style: none;
   }
 
-  .project-card ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .project-card li {
+  .demo-body li {
     padding: 8px 10px;
-    background: rgba(240, 177, 62, 0.14);
-    border: 1px solid rgba(240, 177, 62, 0.34);
+    background: rgba(255, 198, 92, 0.12);
+    border: 1px solid rgba(255, 198, 92, 0.32);
     border-radius: 8px;
-    color: #f7f2e9;
     font-size: 0.82rem;
     font-weight: 800;
   }
 
-  .stack-table {
-    display: grid;
-    border-top: 1px solid #d1c6b6;
+  .demo-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
   }
 
-  .stack-table div {
+  .demo-actions a {
+    min-height: 42px;
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 14px;
+    background: #f4efe5;
+    color: #101219;
+    border-radius: 8px;
+    font-weight: 900;
+  }
+
+  .toolbox-section {
+    border-top: 1px solid rgba(244, 239, 229, 0.14);
+    border-bottom: 1px solid rgba(244, 239, 229, 0.14);
+  }
+
+  .matrix {
     display: grid;
-    grid-template-columns: minmax(140px, 260px) minmax(0, 1fr);
+    border-top: 1px solid rgba(244, 239, 229, 0.18);
+  }
+
+  .matrix-row {
+    display: grid;
+    grid-template-columns: minmax(150px, 260px) minmax(0, 1fr);
     gap: 24px;
     padding: 22px 0;
-    border-bottom: 1px solid #d1c6b6;
+    border-bottom: 1px solid rgba(244, 239, 229, 0.18);
   }
 
-  .stack-table strong {
-    color: #8c3c22;
+  .matrix-row strong {
+    color: #ffc65c;
   }
 
-  .stack-table span {
-    color: #4e4a52;
-    line-height: 1.5;
-  }
-
-  .capability-grid-section {
-    border-top: 1px solid #d1c6b6;
-  }
-
-  .capability-grid {
+  .lab-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 14px;
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 18px;
   }
 
-  .capability-grid article {
-    min-height: 260px;
+  .code-window {
+    min-height: 420px;
     padding: 24px;
-    background: #fffaf0;
-    border: 1px solid #d1c6b6;
+    background: #141821;
+    border: 1px solid rgba(244, 239, 229, 0.16);
     border-radius: 8px;
   }
 
-  .capability-grid li {
-    padding: 9px 0;
-    color: #5d5960;
-    border-bottom: 1px solid #e6ddcf;
+  .code-panel span {
+    display: block;
+    margin-bottom: 20px;
   }
 
-  .capability-grid li:last-child {
-    border-bottom: 0;
+  .code-panel pre {
+    padding: 22px;
+    background: #090b10;
+    border: 1px solid rgba(244, 239, 229, 0.12);
+    border-radius: 8px;
   }
 
   @media (max-width: 980px) {
     .hero-grid,
-    .capability-band,
-    .blueprint,
-    .capability-grid {
+    .tabs-shell,
+    .demo-card,
+    .lab-grid {
       grid-template-columns: 1fr;
     }
 
@@ -608,28 +674,25 @@ const stackRows = [
     }
 
     .hero-grid {
-      padding-top: 64px;
+      padding-top: 68px;
     }
 
-    .signal-panel {
-      min-height: 390px;
-      box-shadow: 12px 12px 0 rgba(240, 177, 62, 0.9);
-    }
-
-    .capability-band article,
-    .blueprint div {
-      border-right: 0;
-      border-bottom: 1px solid rgba(23, 23, 23, 0.24);
+    .command-card {
+      box-shadow: 12px 12px 0 #ffc65c;
     }
 
     .section-head,
-    .stack-table div {
+    .matrix-row {
       grid-template-columns: 1fr;
     }
   }
 
-  @media (max-width: 560px) {
-    .topbar {
+  @media (max-width: 620px) {
+    .cursor-orb {
+      display: none;
+    }
+
+    .nav {
       align-items: flex-start;
       flex-direction: column;
     }
@@ -642,11 +705,18 @@ const stackRows = [
     }
 
     h1 {
-      font-size: 3.05rem;
+      font-size: 3.2rem;
     }
 
-    .signal-grid span {
-      font-size: 0.82rem;
+    .tabs-shell,
+    .section {
+      padding-top: 60px;
+      padding-bottom: 60px;
+    }
+
+    .demo-frame,
+    .demo-frame iframe {
+      min-height: 320px;
     }
   }
 </style>

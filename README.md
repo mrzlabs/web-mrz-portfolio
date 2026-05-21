@@ -2,7 +2,7 @@
 
 Portafolio publico de Dev Personal para Andres Martinez bajo la organizacion `mrzlabs`.
 
-El enfoque del sitio es demostrar capacidad para crear soluciones corporativas, no solo paginas web. La propuesta integra desarrollo, automatizacion, datos, arquitectura operativa y crecimiento digital.
+El enfoque del sitio es demostrar capacidad para crear soluciones corporativas, no solo paginas web. La propuesta integra desarrollo, CRM, LLMs, automatizacion, datos, arquitectura operativa y crecimiento digital.
 
 ## Alcance
 
@@ -14,6 +14,8 @@ Este repositorio contiene solo contenido publico y personal:
 - Templates y utilidades genericas.
 - Frontend de portafolio.
 - Enfoque de crecimiento con Google Ads, Meta Ads, landing pages y medicion.
+- Demos embebidos de proyectos publicados.
+- Interaccion por pestanas y ejemplos aplicados por lenguaje.
 
 No debe contener informacion privada, operativa o sensible de terceros.
 
@@ -26,6 +28,11 @@ No debe contener informacion privada, operativa o sensible de terceros.
 - Google Apps Script
 - Google Sheets
 - Looker Studio
+- SQL
+- PostgreSQL
+- Shell
+- LLMs
+- CRM
 - GitHub
 - Bases de datos nivel modelado operativo
 - Contenedores nivel arquitectura y despliegue base
