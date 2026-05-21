@@ -16,6 +16,7 @@ Este repositorio contiene solo contenido publico y personal:
 - Enfoque de crecimiento con Google Ads, Meta Ads, landing pages y medicion.
 - Demos embebidos de proyectos publicados.
 - Interaccion por pestanas y ejemplos aplicados por lenguaje.
+- Proyecto Seguridad Social SAS publicado en `https://asesoriasas.com`.
 
 No debe contener informacion privada, operativa o sensible de terceros.
 
