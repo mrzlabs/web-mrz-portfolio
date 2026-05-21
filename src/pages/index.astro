@@ -3,57 +3,92 @@ import Layout from '../layouts/Layout.astro';
 
 const projects = [
   {
+    name: 'Top Ink',
+    type: 'Crecimiento digital',
+    text: 'Landing comercial orientada a adquisicion, estructura de oferta, confianza visual y base para campanas de Google Ads y Meta.',
+    stack: ['HTML', 'CSS', 'JavaScript', 'Marketing'],
+    href: 'https://github.com/amtz-dev/topink-landing_1',
+  },
+  {
+    name: 'Impermeables Cliente',
+    type: 'Arquitectura web',
+    text: 'Sitio para venta de servicios con enfoque en conversion, lectura rapida, propuesta de valor y crecimiento por campanas.',
+    stack: ['HTML', 'CSS', 'JavaScript', 'SEO'],
+    href: 'https://github.com/mrzlabs/web-impermeables-cliente',
+  },
+  {
     name: 'GAS Starter',
-    type: 'Template',
-    text: 'Base publica para proyectos de Google Apps Script con estructura limpia, configuracion inicial y convenciones reutilizables.',
-    stack: ['Apps Script', 'clasp', 'JavaScript'],
+    type: 'Template Apps Script',
+    text: 'Base publica para automatizaciones con Google Apps Script, estructura reutilizable, despliegue y convenciones tecnicas.',
+    stack: ['Apps Script', 'clasp', 'JavaScript', 'Git'],
     href: 'https://github.com/mrzlabs/tpl-mrz-gas-starter',
   },
   {
     name: 'GAS Utils',
-    type: 'Libreria',
-    text: 'Utilidades genericas para automatizaciones con datos tabulares, validaciones y operaciones comunes en flujos operativos.',
-    stack: ['Apps Script', 'Sheets', 'Utils'],
+    type: 'Libreria operativa',
+    text: 'Utilidades genericas para validar datos, procesar hojas, normalizar registros y sostener flujos internos repetibles.',
+    stack: ['Apps Script', 'Sheets', 'Utils', 'Data'],
     href: 'https://github.com/mrzlabs/lib-mrz-gas-utils',
   },
   {
-    name: 'Impermeables Cliente',
-    type: 'Web',
-    text: 'Sitio comercial enfocado en presentacion de servicios, estructura de conversion y contenido claro para cliente final.',
-    stack: ['HTML', 'CSS', 'JavaScript'],
-    href: 'https://github.com/mrzlabs/web-impermeables-cliente',
-  },
-  {
     name: 'Asesorias Seguridad Social',
-    type: 'Web',
-    text: 'Landing publica para servicio profesional, con jerarquia visual, secciones informativas y base preparada para mejora continua.',
-    stack: ['HTML', 'CSS', 'Frontend'],
+    type: 'Landing profesional',
+    text: 'Pagina publica para servicio profesional, con jerarquia de contenido, estructura comercial y comunicacion directa.',
+    stack: ['HTML', 'CSS', 'Frontend', 'Copy'],
     href: 'https://github.com/mrzlabs/asesorias-seguridad-social',
   },
 ];
 
-const skills = [
-  'Google Apps Script',
-  'Google Sheets',
-  'Looker Studio',
-  'Astro',
-  'JavaScript',
-  'HTML',
-  'CSS',
-  'GitHub',
-  'Automatizacion',
-  'APIs REST',
-  'Dashboards',
-  'Documentacion tecnica',
+const capabilities = [
+  {
+    area: 'Frontend',
+    items: ['Astro', 'HTML', 'CSS', 'JavaScript', 'UX funcional'],
+  },
+  {
+    area: 'Automatizacion',
+    items: ['Apps Script', 'Sheets', 'APIs REST', 'jobs programados', 'validacion de datos'],
+  },
+  {
+    area: 'Datos',
+    items: ['modelado tabular', 'dashboards', 'Looker Studio', 'KPIs', 'normalizacion'],
+  },
+  {
+    area: 'Infraestructura',
+    items: ['GitHub', 'Docker base', 'variables', 'ambientes', 'documentacion tecnica'],
+  },
+  {
+    area: 'Crecimiento',
+    items: ['Google Ads', 'Meta Ads', 'funnels', 'landing pages', 'medicion'],
+  },
+  {
+    area: 'Arquitectura',
+    items: ['procesos', 'integraciones', 'soporte', 'seguridad basica', 'escalabilidad'],
+  },
+];
+
+const stackRows = [
+  ['Lenguajes', 'JavaScript, HTML, CSS, SQL base, Apps Script'],
+  ['Web', 'Astro, sitios estaticos, landings comerciales, estructura responsive'],
+  ['Datos', 'Sheets, modelado operativo, Looker Studio, KPIs, reportes'],
+  ['Backend ligero', 'Apps Script Web Apps, endpoints, integraciones REST'],
+  ['Infraestructura', 'GitHub, Docker conceptual, variables de entorno, despliegue estatico'],
+  ['Marketing tecnico', 'Google Ads, Meta Ads, embudos, medicion y optimizacion'],
 ];
 ---
 
-<Layout>
-  <main class="page-shell">
+<Layout
+  title="Andres Martinez | Soluciones corporativas y crecimiento digital"
+  description="Portafolio de Andres Martinez: desarrollo web, automatizacion, datos, arquitectura operativa y crecimiento digital."
+>
+  <main class="page">
     <section class="hero" aria-labelledby="hero-title">
       <nav class="topbar" aria-label="Navegacion principal">
-        <a class="brand" href="/">MRZ Labs</a>
+        <a class="brand" href="/">
+          <span>MRZ</span>
+          <strong>Labs</strong>
+        </a>
         <div class="nav-links">
+          <a href="#capacidad">Capacidad</a>
           <a href="#proyectos">Proyectos</a>
           <a href="#stack">Stack</a>
           <a href="https://github.com/mrzlabs">GitHub</a>
@@ -62,45 +97,79 @@ const skills = [
 
       <div class="hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow">Dev Personal</p>
-          <h1 id="hero-title">Andres Martinez</h1>
+          <p class="eyebrow">Dev personal orientado a negocio</p>
+          <h1 id="hero-title">Creo sistemas que conectan operacion, datos y crecimiento.</h1>
           <p class="lead">
-            Desarrollo soluciones web, automatizaciones y herramientas operativas con foco en datos, trazabilidad y ejecucion tecnica.
+            Desarrollo soluciones corporativas desde la arquitectura del proceso hasta la ejecucion tecnica: web, automatizacion, bases de datos, integraciones, dashboards y campanas digitales.
           </p>
-          <div class="hero-actions">
-            <a class="primary" href="#proyectos">Ver proyectos</a>
-            <a class="secondary" href="https://github.com/mrzlabs">GitHub mrzlabs</a>
-          </div>
         </div>
 
-        <aside class="profile-panel" aria-label="Perfil tecnico">
-          <img src="https://avatars.githubusercontent.com/u/241004441?v=4" alt="Avatar de Andres Martinez" width="128" height="128" />
-          <div>
-            <strong>Soporte y Desarrollo</strong>
-            <span>Automatizacion, integraciones y frontend funcional.</span>
+        <aside class="signal-panel" aria-label="Diferencial tecnico">
+          <div class="panel-head">
+            <span>MRZ Labs</span>
+            <strong>Soluciones con criterio de crecimiento</strong>
+          </div>
+          <div class="signal-grid">
+            <span>Web</span>
+            <span>Data</span>
+            <span>Ads</span>
+            <span>APIs</span>
+            <span>CRM</span>
+            <span>Dash</span>
+            <span>Ops</span>
+            <span>UX</span>
+            <span>DB</span>
           </div>
         </aside>
       </div>
     </section>
 
-    <section class="band summary" aria-label="Resumen profesional">
-      <div>
-        <span class="metric">01</span>
-        <p>Construccion de herramientas internas, tableros y flujos automatizados.</p>
+    <section id="capacidad" class="capability-band" aria-label="Capacidad profesional">
+      <article>
+        <span>01</span>
+        <h2>Arquitectura</h2>
+        <p>Traduzco problemas de negocio en flujos, datos, pantallas, automatizaciones y reglas claras de operacion.</p>
+      </article>
+      <article>
+        <span>02</span>
+        <h2>Ejecucion</h2>
+        <p>Construyo web, scripts, integraciones y tableros con estructura mantenible y control de versiones.</p>
+      </article>
+      <article>
+        <span>03</span>
+        <h2>Crecimiento</h2>
+        <p>Conecto landing, medicion, Google Ads, Meta Ads y contenido para convertir trafico en oportunidades.</p>
+      </article>
+    </section>
+
+    <section class="section-block" aria-labelledby="system-title">
+      <div class="section-head">
+        <p class="eyebrow">Mapa de solucion</p>
+        <h2 id="system-title">Del requerimiento al sistema</h2>
       </div>
-      <div>
-        <span class="metric">02</span>
-        <p>Documentacion tecnica lista para ejecucion, soporte y mantenimiento.</p>
-      </div>
-      <div>
-        <span class="metric">03</span>
-        <p>Portafolio separado de cualquier operacion privada o informacion sensible.</p>
+      <div class="blueprint">
+        <div>
+          <strong>Entrada</strong>
+          <span>Problema, proceso, audiencia, datos disponibles.</span>
+        </div>
+        <div>
+          <strong>Arquitectura</strong>
+          <span>Flujos, modelo de datos, pantallas, eventos y automatizaciones.</span>
+        </div>
+        <div>
+          <strong>Implementacion</strong>
+          <span>Frontend, Apps Script, API, dashboard, repositorio y despliegue.</span>
+        </div>
+        <div>
+          <strong>Crecimiento</strong>
+          <span>Campanas, medicion, conversion, mejora continua y soporte.</span>
+        </div>
       </div>
     </section>
 
-    <section id="proyectos" class="section-block" aria-labelledby="projects-title">
+    <section id="proyectos" class="section-block dark-block" aria-labelledby="projects-title">
       <div class="section-head">
-        <p class="eyebrow">Trabajo publico</p>
+        <p class="eyebrow">Casos publicos</p>
         <h2 id="projects-title">Proyectos</h2>
       </div>
 
@@ -109,7 +178,7 @@ const skills = [
           <article class="project-card">
             <div class="card-top">
               <span>{project.type}</span>
-              <a href={project.href} aria-label={`Abrir ${project.name} en GitHub`}>GitHub</a>
+              <a href={project.href} aria-label={`Abrir ${project.name} en GitHub`}>Repositorio</a>
             </div>
             <h3>{project.name}</h3>
             <p>{project.text}</p>
@@ -121,66 +190,93 @@ const skills = [
       </div>
     </section>
 
-    <section id="stack" class="section-block stack-section" aria-labelledby="stack-title">
+    <section id="stack" class="section-block" aria-labelledby="stack-title">
       <div class="section-head">
-        <p class="eyebrow">Base tecnica</p>
-        <h2 id="stack-title">Stack</h2>
+        <p class="eyebrow">Amplitud tecnica</p>
+        <h2 id="stack-title">Stack y criterio</h2>
       </div>
-      <div class="skill-list">
-        {skills.map((skill) => <span>{skill}</span>)}
+
+      <div class="stack-table">
+        {stackRows.map(([label, value]) => (
+          <div>
+            <strong>{label}</strong>
+            <span>{value}</span>
+          </div>
+        ))}
       </div>
     </section>
 
-    <section class="section-block principles" aria-labelledby="principles-title">
+    <section class="section-block capability-grid-section" aria-labelledby="capabilities-title">
       <div class="section-head">
-        <p class="eyebrow">Criterio</p>
-        <h2 id="principles-title">Forma de trabajo</h2>
+        <p class="eyebrow">Cobertura</p>
+        <h2 id="capabilities-title">Areas que conecto</h2>
       </div>
-      <div class="principle-grid">
-        <p>Separar proyectos personales de operaciones privadas.</p>
-        <p>Publicar solo codigo generico, reusable y sin datos sensibles.</p>
-        <p>Convertir procesos repetitivos en herramientas mantenibles.</p>
+
+      <div class="capability-grid">
+        {capabilities.map((group) => (
+          <article>
+            <h3>{group.area}</h3>
+            <ul>
+              {group.items.map((item) => <li>{item}</li>)}
+            </ul>
+          </article>
+        ))}
       </div>
     </section>
   </main>
 </Layout>
 
 <style>
-  .page-shell {
+  .page {
     min-height: 100vh;
+    overflow: hidden;
   }
 
   .hero {
-    min-height: 86vh;
+    min-height: 92vh;
     display: flex;
     flex-direction: column;
-    padding: 28px clamp(18px, 4vw, 64px) 72px;
+    padding: 26px clamp(18px, 4vw, 68px) 54px;
     background:
-      linear-gradient(120deg, rgba(31, 94, 255, 0.11), transparent 34%),
-      linear-gradient(290deg, rgba(27, 127, 90, 0.18), transparent 38%),
-      var(--bg);
-    border-bottom: 1px solid var(--line);
+      linear-gradient(90deg, rgba(19, 22, 27, 0.94), rgba(19, 22, 27, 0.76)),
+      repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 88px),
+      repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.06) 0 1px, transparent 1px 88px),
+      #15181f;
+    color: #f7f2e9;
   }
 
   .topbar {
+    min-height: 54px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 24px;
-    min-height: 52px;
+    gap: 22px;
   }
 
   .brand {
-    font-weight: 800;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    color: inherit;
+    font-size: 1rem;
+    font-weight: 900;
     text-decoration: none;
-    letter-spacing: 0;
+  }
+
+  .brand span {
+    color: #f0b13e;
+  }
+
+  .brand strong {
+    font-weight: 900;
   }
 
   .nav-links {
     display: flex;
-    gap: 18px;
-    color: var(--muted);
-    font-size: 0.94rem;
+    flex-wrap: wrap;
+    gap: 16px;
+    color: rgba(247, 242, 233, 0.72);
+    font-size: 0.92rem;
   }
 
   .nav-links a {
@@ -188,30 +284,30 @@ const skills = [
   }
 
   .nav-links a:hover {
-    color: var(--ink);
+    color: #f7f2e9;
   }
 
   .hero-grid {
     flex: 1;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(260px, 360px);
-    align-items: center;
-    gap: clamp(28px, 6vw, 88px);
-    max-width: 1180px;
     width: 100%;
+    max-width: 1240px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 470px);
+    align-items: center;
+    gap: clamp(34px, 6vw, 96px);
     margin: 0 auto;
   }
 
   .hero-copy {
-    max-width: 760px;
+    max-width: 850px;
   }
 
   .eyebrow {
-    margin: 0 0 14px;
-    color: var(--green);
+    margin: 0 0 16px;
+    color: #f0b13e;
     font-size: 0.78rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
+    font-weight: 900;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
   }
 
@@ -223,276 +319,334 @@ const skills = [
   }
 
   h1 {
-    margin-bottom: 18px;
-    font-size: clamp(3rem, 8vw, 7rem);
-    line-height: 0.92;
+    max-width: 980px;
+    margin-bottom: 24px;
+    font-size: clamp(3rem, 7.4vw, 7.8rem);
+    line-height: 0.9;
     letter-spacing: 0;
   }
 
   h2 {
-    margin-bottom: 0;
-    font-size: clamp(2rem, 4vw, 3.4rem);
-    line-height: 1;
+    margin: 0;
+    font-size: clamp(2rem, 4.8vw, 4.6rem);
+    line-height: 0.96;
     letter-spacing: 0;
   }
 
   h3 {
     margin-bottom: 12px;
-    font-size: 1.28rem;
-    letter-spacing: 0;
+    font-size: 1.24rem;
   }
 
   .lead {
-    max-width: 680px;
-    color: #343842;
-    font-size: clamp(1.12rem, 2vw, 1.45rem);
-    line-height: 1.45;
+    max-width: 760px;
+    color: rgba(247, 242, 233, 0.78);
+    font-size: clamp(1.05rem, 2vw, 1.36rem);
+    line-height: 1.48;
   }
 
-  .hero-actions {
+  .signal-panel {
+    min-height: 520px;
     display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 30px;
-  }
-
-  .primary,
-  .secondary {
-    min-height: 44px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px 18px;
-    border-radius: 8px;
-    font-weight: 800;
-    text-decoration: none;
-  }
-
-  .primary {
-    background: var(--ink);
-    color: var(--panel);
-  }
-
-  .secondary {
-    border: 1px solid var(--line);
-    background: rgba(255, 253, 248, 0.68);
-  }
-
-  .profile-panel {
-    display: grid;
-    gap: 22px;
-    align-content: end;
-    min-height: 420px;
+    flex-direction: column;
+    justify-content: space-between;
     padding: 28px;
-    background: #17231f;
-    color: #fffdf8;
+    background: #f7f2e9;
+    color: #171717;
+    border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 8px;
-    overflow: hidden;
-    position: relative;
+    box-shadow: 22px 22px 0 rgba(240, 177, 62, 0.9);
   }
 
-  .profile-panel::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(150deg, transparent, rgba(185, 111, 22, 0.38));
-  }
-
-  .profile-panel img,
-  .profile-panel div {
-    position: relative;
-  }
-
-  .profile-panel img {
-    width: 128px;
-    height: 128px;
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.28);
-  }
-
-  .profile-panel strong,
-  .profile-panel span {
+  .panel-head span,
+  .panel-head strong {
     display: block;
   }
 
-  .profile-panel strong {
-    margin-bottom: 8px;
-    font-size: 1.2rem;
-  }
-
-  .profile-panel span {
-    color: rgba(255, 253, 248, 0.76);
-    line-height: 1.5;
-  }
-
-  .band {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1px;
-    background: var(--line);
-    border-bottom: 1px solid var(--line);
-  }
-
-  .summary div {
-    min-height: 150px;
-    padding: 28px clamp(18px, 3vw, 42px);
-    background: var(--panel);
-  }
-
-  .metric {
-    display: block;
-    margin-bottom: 18px;
-    color: var(--amber);
+  .panel-head span {
+    margin-bottom: 10px;
+    color: #8c3c22;
     font-weight: 900;
   }
 
-  .summary p,
-  .principle-grid p,
-  .project-card p {
-    color: var(--muted);
-    line-height: 1.55;
+  .panel-head strong {
+    font-size: clamp(1.7rem, 3vw, 2.7rem);
+    line-height: 0.98;
+  }
+
+  .signal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .signal-grid span {
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    background: #171717;
+    color: #f7f2e9;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    font-weight: 900;
+  }
+
+  .capability-band {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    background: #f0b13e;
+    border-bottom: 1px solid #171717;
+  }
+
+  .capability-band article {
+    min-height: 230px;
+    padding: 32px clamp(20px, 3vw, 44px);
+    border-right: 1px solid rgba(23, 23, 23, 0.28);
+  }
+
+  .capability-band article:last-child {
+    border-right: 0;
+  }
+
+  .capability-band span {
+    display: block;
+    margin-bottom: 24px;
+    font-weight: 900;
+  }
+
+  .capability-band h2 {
+    margin-bottom: 16px;
+    font-size: clamp(1.9rem, 3vw, 3rem);
+  }
+
+  .capability-band p {
+    max-width: 360px;
+    color: rgba(23, 23, 23, 0.72);
+    line-height: 1.5;
   }
 
   .section-block {
-    max-width: 1180px;
+    max-width: 1240px;
     margin: 0 auto;
-    padding: 78px clamp(18px, 4vw, 64px);
+    padding: 86px clamp(18px, 4vw, 68px);
   }
 
   .section-head {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(160px, 260px) minmax(0, 1fr);
     align-items: end;
+    gap: 30px;
+    margin-bottom: 38px;
+  }
+
+  .blueprint {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border: 1px solid #d1c6b6;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .blueprint div {
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    gap: 28px;
-    margin-bottom: 34px;
+    padding: 24px;
+    background: #fffaf0;
+    border-right: 1px solid #d1c6b6;
+  }
+
+  .blueprint div:last-child {
+    border-right: 0;
+  }
+
+  .blueprint strong {
+    font-size: 1.12rem;
+  }
+
+  .blueprint span {
+    color: #5d5960;
+    line-height: 1.5;
+  }
+
+  .dark-block {
+    max-width: none;
+    background: #171717;
+    color: #f7f2e9;
+  }
+
+  .dark-block > .section-head,
+  .dark-block > .project-grid {
+    max-width: 1240px;
+    margin-right: auto;
+    margin-left: auto;
   }
 
   .project-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
+    grid-template-columns: repeat(5, minmax(220px, 1fr));
+    gap: 14px;
+    overflow-x: auto;
+    padding-bottom: 4px;
   }
 
   .project-card {
-    min-height: 300px;
+    min-height: 360px;
     display: flex;
     flex-direction: column;
-    padding: 24px;
-    background: var(--panel);
-    border: 1px solid var(--line);
+    padding: 22px;
+    background: #24272f;
+    border: 1px solid rgba(247, 242, 233, 0.16);
     border-radius: 8px;
   }
 
   .card-top {
+    min-height: 40px;
     display: flex;
     justify-content: space-between;
     gap: 16px;
-    margin-bottom: 28px;
-    font-size: 0.86rem;
-    color: var(--muted);
+    margin-bottom: 30px;
+    color: rgba(247, 242, 233, 0.68);
+    font-size: 0.84rem;
   }
 
   .card-top a {
-    color: var(--blue);
-    font-weight: 800;
+    color: #f0b13e;
+    font-weight: 900;
     text-decoration: none;
+  }
+
+  .project-card p {
+    color: rgba(247, 242, 233, 0.7);
+    line-height: 1.55;
+  }
+
+  .project-card ul,
+  .capability-grid ul {
+    margin: auto 0 0;
+    padding: 0;
+    list-style: none;
   }
 
   .project-card ul {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin: auto 0 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .project-card li,
-  .skill-list span {
-    border-radius: 8px;
-    border: 1px solid var(--line);
-    background: #f7f4ed;
-    color: #31343a;
-    font-size: 0.86rem;
-    font-weight: 700;
   }
 
   .project-card li {
     padding: 8px 10px;
+    background: rgba(240, 177, 62, 0.14);
+    border: 1px solid rgba(240, 177, 62, 0.34);
+    border-radius: 8px;
+    color: #f7f2e9;
+    font-size: 0.82rem;
+    font-weight: 800;
   }
 
-  .stack-section {
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
+  .stack-table {
+    display: grid;
+    border-top: 1px solid #d1c6b6;
   }
 
-  .skill-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+  .stack-table div {
+    display: grid;
+    grid-template-columns: minmax(140px, 260px) minmax(0, 1fr);
+    gap: 24px;
+    padding: 22px 0;
+    border-bottom: 1px solid #d1c6b6;
   }
 
-  .skill-list span {
-    padding: 10px 12px;
+  .stack-table strong {
+    color: #8c3c22;
   }
 
-  .principle-grid {
+  .stack-table span {
+    color: #4e4a52;
+    line-height: 1.5;
+  }
+
+  .capability-grid-section {
+    border-top: 1px solid #d1c6b6;
+  }
+
+  .capability-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px;
+    gap: 14px;
   }
 
-  .principle-grid p {
-    min-height: 128px;
-    margin: 0;
-    padding: 22px;
-    background: #e9efe8;
-    border: 1px solid #cbd8ca;
+  .capability-grid article {
+    min-height: 260px;
+    padding: 24px;
+    background: #fffaf0;
+    border: 1px solid #d1c6b6;
     border-radius: 8px;
   }
 
-  @media (max-width: 860px) {
-    .hero {
-      min-height: auto;
-      padding-bottom: 42px;
+  .capability-grid li {
+    padding: 9px 0;
+    color: #5d5960;
+    border-bottom: 1px solid #e6ddcf;
+  }
+
+  .capability-grid li:last-child {
+    border-bottom: 0;
+  }
+
+  @media (max-width: 980px) {
+    .hero-grid,
+    .capability-band,
+    .blueprint,
+    .capability-grid {
+      grid-template-columns: 1fr;
     }
 
-    .topbar,
-    .section-head {
+    .hero {
+      min-height: auto;
+    }
+
+    .hero-grid {
+      padding-top: 64px;
+    }
+
+    .signal-panel {
+      min-height: 390px;
+      box-shadow: 12px 12px 0 rgba(240, 177, 62, 0.9);
+    }
+
+    .capability-band article,
+    .blueprint div {
+      border-right: 0;
+      border-bottom: 1px solid rgba(23, 23, 23, 0.24);
+    }
+
+    .section-head,
+    .stack-table div {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .topbar {
       align-items: flex-start;
       flex-direction: column;
     }
 
-    .hero-grid,
-    .band,
-    .project-grid,
-    .principle-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .hero-grid {
-      padding-top: 56px;
-    }
-
-    .profile-panel {
-      min-height: 300px;
-    }
-  }
-
-  @media (max-width: 520px) {
     .nav-links {
       width: 100%;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
       gap: 10px;
-      font-size: 0.88rem;
     }
 
     h1 {
-      font-size: 3rem;
+      font-size: 3.05rem;
     }
 
-    .hero-actions a {
-      width: 100%;
+    .signal-grid span {
+      font-size: 0.82rem;
     }
   }
 </style>
