@@ -1,11 +1,498 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const projects = [
+  {
+    name: 'GAS Starter',
+    type: 'Template',
+    text: 'Base publica para proyectos de Google Apps Script con estructura limpia, configuracion inicial y convenciones reutilizables.',
+    stack: ['Apps Script', 'clasp', 'JavaScript'],
+    href: 'https://github.com/mrzlabs/tpl-mrz-gas-starter',
+  },
+  {
+    name: 'GAS Utils',
+    type: 'Libreria',
+    text: 'Utilidades genericas para automatizaciones con datos tabulares, validaciones y operaciones comunes en flujos operativos.',
+    stack: ['Apps Script', 'Sheets', 'Utils'],
+    href: 'https://github.com/mrzlabs/lib-mrz-gas-utils',
+  },
+  {
+    name: 'Impermeables Cliente',
+    type: 'Web',
+    text: 'Sitio comercial enfocado en presentacion de servicios, estructura de conversion y contenido claro para cliente final.',
+    stack: ['HTML', 'CSS', 'JavaScript'],
+    href: 'https://github.com/mrzlabs/web-impermeables-cliente',
+  },
+  {
+    name: 'Asesorias Seguridad Social',
+    type: 'Web',
+    text: 'Landing publica para servicio profesional, con jerarquia visual, secciones informativas y base preparada para mejora continua.',
+    stack: ['HTML', 'CSS', 'Frontend'],
+    href: 'https://github.com/mrzlabs/asesorias-seguridad-social',
+  },
+];
+
+const skills = [
+  'Google Apps Script',
+  'Google Sheets',
+  'Looker Studio',
+  'Astro',
+  'JavaScript',
+  'HTML',
+  'CSS',
+  'GitHub',
+  'Automatizacion',
+  'APIs REST',
+  'Dashboards',
+  'Documentacion tecnica',
+];
 ---
 
 <Layout>
-	<Welcome />
+  <main class="page-shell">
+    <section class="hero" aria-labelledby="hero-title">
+      <nav class="topbar" aria-label="Navegacion principal">
+        <a class="brand" href="/">MRZ Labs</a>
+        <div class="nav-links">
+          <a href="#proyectos">Proyectos</a>
+          <a href="#stack">Stack</a>
+          <a href="https://github.com/mrzlabs">GitHub</a>
+        </div>
+      </nav>
+
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Dev Personal</p>
+          <h1 id="hero-title">Andres Martinez</h1>
+          <p class="lead">
+            Desarrollo soluciones web, automatizaciones y herramientas operativas con foco en datos, trazabilidad y ejecucion tecnica.
+          </p>
+          <div class="hero-actions">
+            <a class="primary" href="#proyectos">Ver proyectos</a>
+            <a class="secondary" href="https://github.com/mrzlabs">GitHub mrzlabs</a>
+          </div>
+        </div>
+
+        <aside class="profile-panel" aria-label="Perfil tecnico">
+          <img src="https://avatars.githubusercontent.com/u/241004441?v=4" alt="Avatar de Andres Martinez" width="128" height="128" />
+          <div>
+            <strong>Soporte y Desarrollo</strong>
+            <span>Automatizacion, integraciones y frontend funcional.</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="band summary" aria-label="Resumen profesional">
+      <div>
+        <span class="metric">01</span>
+        <p>Construccion de herramientas internas, tableros y flujos automatizados.</p>
+      </div>
+      <div>
+        <span class="metric">02</span>
+        <p>Documentacion tecnica lista para ejecucion, soporte y mantenimiento.</p>
+      </div>
+      <div>
+        <span class="metric">03</span>
+        <p>Portafolio separado de cualquier operacion privada o informacion sensible.</p>
+      </div>
+    </section>
+
+    <section id="proyectos" class="section-block" aria-labelledby="projects-title">
+      <div class="section-head">
+        <p class="eyebrow">Trabajo publico</p>
+        <h2 id="projects-title">Proyectos</h2>
+      </div>
+
+      <div class="project-grid">
+        {projects.map((project) => (
+          <article class="project-card">
+            <div class="card-top">
+              <span>{project.type}</span>
+              <a href={project.href} aria-label={`Abrir ${project.name} en GitHub`}>GitHub</a>
+            </div>
+            <h3>{project.name}</h3>
+            <p>{project.text}</p>
+            <ul>
+              {project.stack.map((item) => <li>{item}</li>)}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section id="stack" class="section-block stack-section" aria-labelledby="stack-title">
+      <div class="section-head">
+        <p class="eyebrow">Base tecnica</p>
+        <h2 id="stack-title">Stack</h2>
+      </div>
+      <div class="skill-list">
+        {skills.map((skill) => <span>{skill}</span>)}
+      </div>
+    </section>
+
+    <section class="section-block principles" aria-labelledby="principles-title">
+      <div class="section-head">
+        <p class="eyebrow">Criterio</p>
+        <h2 id="principles-title">Forma de trabajo</h2>
+      </div>
+      <div class="principle-grid">
+        <p>Separar proyectos personales de operaciones privadas.</p>
+        <p>Publicar solo codigo generico, reusable y sin datos sensibles.</p>
+        <p>Convertir procesos repetitivos en herramientas mantenibles.</p>
+      </div>
+    </section>
+  </main>
 </Layout>
+
+<style>
+  .page-shell {
+    min-height: 100vh;
+  }
+
+  .hero {
+    min-height: 86vh;
+    display: flex;
+    flex-direction: column;
+    padding: 28px clamp(18px, 4vw, 64px) 72px;
+    background:
+      linear-gradient(120deg, rgba(31, 94, 255, 0.11), transparent 34%),
+      linear-gradient(290deg, rgba(27, 127, 90, 0.18), transparent 38%),
+      var(--bg);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    min-height: 52px;
+  }
+
+  .brand {
+    font-weight: 800;
+    text-decoration: none;
+    letter-spacing: 0;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 18px;
+    color: var(--muted);
+    font-size: 0.94rem;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+  }
+
+  .nav-links a:hover {
+    color: var(--ink);
+  }
+
+  .hero-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 360px);
+    align-items: center;
+    gap: clamp(28px, 6vw, 88px);
+    max-width: 1180px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .hero-copy {
+    max-width: 760px;
+  }
+
+  .eyebrow {
+    margin: 0 0 14px;
+    color: var(--green);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin-top: 0;
+  }
+
+  h1 {
+    margin-bottom: 18px;
+    font-size: clamp(3rem, 8vw, 7rem);
+    line-height: 0.92;
+    letter-spacing: 0;
+  }
+
+  h2 {
+    margin-bottom: 0;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    line-height: 1;
+    letter-spacing: 0;
+  }
+
+  h3 {
+    margin-bottom: 12px;
+    font-size: 1.28rem;
+    letter-spacing: 0;
+  }
+
+  .lead {
+    max-width: 680px;
+    color: #343842;
+    font-size: clamp(1.12rem, 2vw, 1.45rem);
+    line-height: 1.45;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  .primary,
+  .secondary {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .primary {
+    background: var(--ink);
+    color: var(--panel);
+  }
+
+  .secondary {
+    border: 1px solid var(--line);
+    background: rgba(255, 253, 248, 0.68);
+  }
+
+  .profile-panel {
+    display: grid;
+    gap: 22px;
+    align-content: end;
+    min-height: 420px;
+    padding: 28px;
+    background: #17231f;
+    color: #fffdf8;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .profile-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(150deg, transparent, rgba(185, 111, 22, 0.38));
+  }
+
+  .profile-panel img,
+  .profile-panel div {
+    position: relative;
+  }
+
+  .profile-panel img {
+    width: 128px;
+    height: 128px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+  }
+
+  .profile-panel strong,
+  .profile-panel span {
+    display: block;
+  }
+
+  .profile-panel strong {
+    margin-bottom: 8px;
+    font-size: 1.2rem;
+  }
+
+  .profile-panel span {
+    color: rgba(255, 253, 248, 0.76);
+    line-height: 1.5;
+  }
+
+  .band {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .summary div {
+    min-height: 150px;
+    padding: 28px clamp(18px, 3vw, 42px);
+    background: var(--panel);
+  }
+
+  .metric {
+    display: block;
+    margin-bottom: 18px;
+    color: var(--amber);
+    font-weight: 900;
+  }
+
+  .summary p,
+  .principle-grid p,
+  .project-card p {
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  .section-block {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 78px clamp(18px, 4vw, 64px);
+  }
+
+  .section-head {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 28px;
+    margin-bottom: 34px;
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .project-card {
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+  }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 28px;
+    font-size: 0.86rem;
+    color: var(--muted);
+  }
+
+  .card-top a {
+    color: var(--blue);
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .project-card ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: auto 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .project-card li,
+  .skill-list span {
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: #f7f4ed;
+    color: #31343a;
+    font-size: 0.86rem;
+    font-weight: 700;
+  }
+
+  .project-card li {
+    padding: 8px 10px;
+  }
+
+  .stack-section {
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .skill-list span {
+    padding: 10px 12px;
+  }
+
+  .principle-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .principle-grid p {
+    min-height: 128px;
+    margin: 0;
+    padding: 22px;
+    background: #e9efe8;
+    border: 1px solid #cbd8ca;
+    border-radius: 8px;
+  }
+
+  @media (max-width: 860px) {
+    .hero {
+      min-height: auto;
+      padding-bottom: 42px;
+    }
+
+    .topbar,
+    .section-head {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .hero-grid,
+    .band,
+    .project-grid,
+    .principle-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-grid {
+      padding-top: 56px;
+    }
+
+    .profile-panel {
+      min-height: 300px;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .nav-links {
+      width: 100%;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 0.88rem;
+    }
+
+    h1 {
+      font-size: 3rem;
+    }
+
+    .hero-actions a {
+      width: 100%;
+    }
+  }
+</style>
