@@ -1,46 +1,62 @@
-# Astro Starter Kit: Basics
+# web-mrz-portfolio
+
+Portafolio publico de Dev Personal para Andres Martinez bajo la organizacion `mrzlabs`.
+
+## Alcance
+
+Este repositorio contiene solo contenido publico y personal:
+
+- Perfil tecnico.
+- Proyectos publicos de `mrzlabs`.
+- Templates y utilidades genericas.
+- Frontend de portafolio.
+
+No debe contener informacion privada, operativa o sensible de terceros.
+
+## Stack
+
+- Astro 6
+- HTML
+- CSS
+- JavaScript
+
+## Comandos
 
 ```sh
-npm create astro@latest -- --template basics
+npm install
+npm run dev
+npm run build
+npm run preview
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+## Estructura
 
 ```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+src/
+  layouts/
+    Layout.astro
+  pages/
+    index.astro
+public/
+package.json
+astro.config.mjs
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Regla de contenido
 
-## 🧞 Commands
+No publicar:
 
-All commands are run from the root of the project, from a terminal:
+- Tokens.
+- Credenciales.
+- Telefonos.
+- Correos privados.
+- IDs internos.
+- Capturas con datos operativos.
+- Informacion institucional sensible.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## Repos relacionados
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- `mrzlabs/tpl-mrz-gas-starter`
+- `mrzlabs/lib-mrz-gas-utils`
+- `mrzlabs/web-impermeables-cliente`
+- `mrzlabs/asesorias-seguridad-social`
