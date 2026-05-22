@@ -989,10 +989,11 @@ status: deployable</code></pre>
   .mrz-signature {
     position: relative;
     padding: 42px clamp(18px, 5vw, 72px);
-    background: #0b1220;
+    background: #090519;
     color: #f4efe5;
     text-align: center;
     overflow: visible;
+    box-shadow: inset 0 1px 0 rgba(192, 132, 252, 0.14), inset 0 -1px 0 rgba(192, 132, 252, 0.12);
   }
 
   .mrz-sign-inner {
@@ -1010,16 +1011,16 @@ status: deployable</code></pre>
   }
 
   .mrz-signature h2 b {
-    color: #ff6b00;
+    color: #c084fc;
   }
 
   .built-toggle {
     margin: 14px 0 18px;
     padding: 10px 20px;
-    border: 1px solid #ff6b00;
+    border: 1px solid rgba(192, 132, 252, 0.78);
     border-radius: 999px;
-    background: transparent;
-    color: #ff8a3d;
+    background: rgba(30, 13, 62, 0.58);
+    color: #d8b4fe;
     font-weight: 900;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -1062,9 +1063,9 @@ status: deployable</code></pre>
     grid-template-columns: 1fr 1fr;
     gap: 18px;
     padding: 20px;
-    border: 1px solid rgba(255, 107, 0, 0.46);
+    border: 1px solid rgba(192, 132, 252, 0.42);
     border-radius: 18px;
-    background: rgba(11, 18, 32, 0.88);
+    background: rgba(9, 5, 25, 0.9);
     box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
   }
 
@@ -1091,7 +1092,7 @@ status: deployable</code></pre>
 
   .built-modal strong {
     display: block;
-    color: #ff6b00;
+    color: #c084fc;
     font-size: 0.78rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -1127,8 +1128,8 @@ status: deployable</code></pre>
     padding: 11px 14px;
     border: 0;
     border-radius: 8px;
-    background: #ff6b00;
-    color: #101219;
+    background: #7c3aed;
+    color: #f5f3ff;
     font-weight: 900;
     text-decoration: none;
   }
@@ -1171,6 +1172,7 @@ status: deployable</code></pre>
     transition: transform 2.8s cubic-bezier(0.45, 0.05, 0.25, 1);
     animation: botBreathe 3.4s ease-in-out infinite;
     cursor: pointer;
+    box-shadow: 0 0 20px rgba(126, 34, 206, 0.18);
     pointer-events: auto;
   }
 
@@ -1250,24 +1252,32 @@ status: deployable</code></pre>
     inset: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.34;
+    opacity: 0.72;
     overflow: visible;
   }
 
   .net-routes path {
     fill: none;
-    stroke: rgba(192, 132, 252, 0.18);
-    stroke-width: 3;
+    stroke: rgba(167, 139, 250, 0.42);
+    stroke-width: 1.8;
     stroke-linecap: round;
     stroke-linejoin: round;
-    stroke-dasharray: 18 44;
+    stroke-dasharray: 10 22;
     stroke-dashoffset: 880;
     opacity: 0;
-    filter: drop-shadow(0 0 5px rgba(192, 132, 252, 0.22));
+    filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.62));
   }
 
   .net-routes path.on {
-    animation: routeSketch 4.8s cubic-bezier(0.34, 0.04, 0.18, 1) both;
+    animation: routeSketch 8s ease-in-out both;
+  }
+
+  .net-routes path:nth-child(2n) {
+    stroke: rgba(99, 102, 241, 0.34);
+  }
+
+  .net-routes path:nth-child(3n) {
+    stroke: rgba(216, 180, 254, 0.28);
   }
 
   .mrz-build-map .nd {
@@ -1406,10 +1416,10 @@ status: deployable</code></pre>
   }
 
   @keyframes routeSketch {
-    0% { opacity: 0; stroke-dashoffset: 880; }
-    22% { opacity: 0.22; }
-    78% { opacity: 0.14; stroke-dashoffset: 0; }
-    100% { opacity: 0; stroke-dashoffset: -220; }
+    0% { opacity: 0.08; stroke-dashoffset: 740; }
+    32% { opacity: 0.54; }
+    72% { opacity: 0.24; stroke-dashoffset: 0; }
+    100% { opacity: 0.08; stroke-dashoffset: -260; }
   }
 
   .tabs-shell {
