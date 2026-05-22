@@ -399,22 +399,36 @@ status: deployable</code></pre>
         <span></span>
         <i></i>
       </div>
+      <div class="mrz-build-map" aria-hidden="true">
+        <i></i>
+        <i></i>
+        <i></i>
+      </div>
       <div class="mrz-sign-inner">
         <h2 id="built-title"><span>mrz</span><b>labs</b></h2>
         <button class="built-toggle" type="button" data-built-toggle>Built by mrzlabs</button>
-        <p>Infraestructura digital para captación de leads, automatización operativa y medición de crecimiento.</p>
+        <p>Captamos, automatizamos, escalamos. Sin fricción, con evidencia.</p>
         <div class="built-panel" data-built-panel>
           <div>
-            <strong>Propuesta de valor</strong>
-            <p>Diseño soluciones con Google Workspace, Apps Script, AppSheet, Cloud, CRM, datos y automatización para convertir procesos manuales en sistemas medibles.</p>
-            <a href="https://github.com/mrzlabs" target="_blank" rel="noreferrer">GitHub mrzlabs</a>
+            <strong>Arquitectura progresiva</strong>
+            <p>Infraestructura digital escalable para empresas que quieren crecer con propósito. Arquitectura progresiva, seguridad real, sin amarres.</p>
+            <ol>
+              <li>Traes tu propuesta.</li>
+              <li>Analizo operación, datos y fricción.</li>
+              <li>Propongo la solución más viable.</li>
+              <li>Construyo, automatizo y dejo métricas.</li>
+            </ol>
+            <div class="built-links">
+              <a href="https://github.com/mrzlabs" target="_blank" rel="noreferrer">GitHub</a>
+              <a href="/" rel="noreferrer">Portafolio</a>
+            </div>
           </div>
           <form class="built-form">
             <input name="nombre" placeholder="Nombre" required />
             <input name="telefono" placeholder="Número" required />
             <input name="correo" type="email" placeholder="Correo" />
             <textarea name="comentario" placeholder="Comentario"></textarea>
-            <button type="submit">Enviar contacto</button>
+            <button type="submit">Hablemos de tu proyecto</button>
           </form>
         </div>
       </div>
@@ -829,7 +843,7 @@ status: deployable</code></pre>
 
   .mrz-signature {
     position: relative;
-    padding: 76px clamp(18px, 5vw, 72px);
+    padding: 42px clamp(18px, 5vw, 72px);
     background: #0b1220;
     color: #f4efe5;
     text-align: center;
@@ -837,12 +851,12 @@ status: deployable</code></pre>
   }
 
   .mrz-sign-inner {
-    max-width: 860px;
+    max-width: 720px;
     margin: 0 auto;
   }
 
   .mrz-signature h2 {
-    font-size: clamp(3rem, 9vw, 5.8rem);
+    font-size: clamp(2.4rem, 6vw, 4.2rem);
   }
 
   .mrz-signature h2 span {
@@ -854,8 +868,8 @@ status: deployable</code></pre>
   }
 
   .built-toggle {
-    margin: 20px 0 24px;
-    padding: 12px 22px;
+    margin: 14px 0 18px;
+    padding: 10px 20px;
     border: 1px solid #ff6b00;
     border-radius: 999px;
     background: transparent;
@@ -868,10 +882,10 @@ status: deployable</code></pre>
 
   .mrz-signature > p,
   .mrz-sign-inner > p {
-    max-width: 620px;
+    max-width: 560px;
     margin: 0 auto;
     color: rgba(244, 239, 229, 0.72);
-    font-size: 1.06rem;
+    font-size: 0.98rem;
     line-height: 1.6;
   }
 
@@ -895,10 +909,34 @@ status: deployable</code></pre>
 
   .built-panel > div,
   .built-form {
-    padding: 22px;
+    padding: 18px;
     border: 1px solid rgba(244, 239, 229, 0.14);
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.04);
+  }
+
+  .built-panel strong {
+    display: block;
+    color: #ff6b00;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .built-panel ol {
+    display: grid;
+    gap: 8px;
+    margin: 16px 0 0;
+    padding-left: 18px;
+    color: rgba(244, 239, 229, 0.72);
+    font-size: 0.88rem;
+    line-height: 1.45;
+  }
+
+  .built-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
   }
 
   .built-panel a,
@@ -938,48 +976,48 @@ status: deployable</code></pre>
 
   .mrz-bot {
     position: absolute;
-    right: clamp(22px, 8vw, 110px);
-    bottom: 28px;
-    width: 74px;
-    height: 64px;
-    border: 2px solid rgba(244, 239, 229, 0.72);
-    border-radius: 22px 22px 18px 18px;
-    background: #f4efe5;
-    box-shadow: 0 0 26px rgba(13, 191, 155, 0.3);
-    animation: botHop 2.4s ease-in-out infinite;
+    right: clamp(22px, 8vw, 92px);
+    bottom: 24px;
+    width: 58px;
+    height: 52px;
+    border: 2px solid rgba(233, 220, 255, 0.72);
+    border-radius: 18px 18px 15px 15px;
+    background: rgba(233, 220, 255, 0.92);
+    box-shadow: 0 0 36px rgba(111, 66, 193, 0.46);
+    animation: botWork 2.1s ease-in-out infinite;
   }
 
   .mrz-bot::before {
     content: '';
     position: absolute;
-    left: 34px;
-    top: -26px;
+    left: 27px;
+    top: -22px;
     width: 5px;
-    height: 24px;
-    background: #0b1220;
+    height: 20px;
+    background: #2b154f;
     border-radius: 99px;
   }
 
   .mrz-bot::after {
     content: '';
     position: absolute;
-    left: 28px;
-    top: -33px;
-    width: 16px;
-    height: 16px;
-    background: #0dbf9b;
+    left: 21px;
+    top: -30px;
+    width: 15px;
+    height: 15px;
+    background: #c084fc;
     border-radius: 50%;
-    box-shadow: 0 0 18px #0dbf9b;
+    box-shadow: 0 0 20px #c084fc;
   }
 
   .mrz-bot span {
     position: absolute;
-    left: 15px;
-    top: 22px;
-    width: 44px;
-    height: 20px;
+    left: 10px;
+    top: 18px;
+    width: 36px;
+    height: 18px;
     border-radius: 12px;
-    background: #101219;
+    background: #1b1033;
   }
 
   .mrz-bot span::before,
@@ -989,37 +1027,99 @@ status: deployable</code></pre>
     top: 5px;
     width: 10px;
     height: 10px;
-    background: #18e0ca;
+    background: #38f8d6;
     border-radius: 50%;
-    box-shadow: 0 0 10px #18e0ca;
+    box-shadow: 0 0 12px #38f8d6;
   }
 
   .mrz-bot span::before {
-    left: 8px;
+    left: 7px;
   }
 
   .mrz-bot span::after {
-    right: 8px;
+    right: 7px;
   }
 
   .mrz-bot i {
     position: absolute;
-    left: 19px;
-    bottom: -8px;
-    width: 14px;
-    height: 12px;
-    background: #101219;
+    left: 15px;
+    bottom: -7px;
+    width: 12px;
+    height: 10px;
+    background: #1b1033;
     border-radius: 0 0 6px 6px;
-    box-shadow: 23px 0 0 #101219;
+    box-shadow: 18px 0 0 #1b1033;
   }
 
   .mrz-signature:hover .mrz-bot {
-    animation-duration: 0.65s;
+    animation-duration: 0.7s;
   }
 
-  @keyframes botHop {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+  .mrz-build-map {
+    position: absolute;
+    right: clamp(82px, 13vw, 170px);
+    bottom: 32px;
+    width: 190px;
+    height: 78px;
+    opacity: 0.34;
+    filter: drop-shadow(0 0 16px rgba(111, 66, 193, 0.5));
+  }
+
+  .mrz-build-map::before,
+  .mrz-build-map::after,
+  .mrz-build-map i {
+    content: '';
+    position: absolute;
+    border: 1px solid rgba(192, 132, 252, 0.72);
+    border-radius: 8px;
+    background: rgba(111, 66, 193, 0.18);
+  }
+
+  .mrz-build-map::before {
+    left: 0;
+    bottom: 0;
+    width: 58px;
+    height: 28px;
+  }
+
+  .mrz-build-map::after {
+    left: 66px;
+    bottom: 20px;
+    width: 58px;
+    height: 28px;
+  }
+
+  .mrz-build-map i:nth-child(1) {
+    left: 132px;
+    bottom: 42px;
+    width: 48px;
+    height: 28px;
+  }
+
+  .mrz-build-map i:nth-child(2) {
+    left: 52px;
+    bottom: 14px;
+    width: 62px;
+    height: 1px;
+    border-radius: 999px;
+  }
+
+  .mrz-build-map i:nth-child(3) {
+    left: 116px;
+    bottom: 38px;
+    width: 38px;
+    height: 1px;
+    border-radius: 999px;
+  }
+
+  .mrz-signature.is-open .mrz-build-map {
+    opacity: 0.9;
+  }
+
+  @keyframes botWork {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    35% { transform: translateY(-8px) rotate(-2deg); }
+    70% { transform: translateY(-3px) rotate(2deg); }
   }
 
   .tabs-shell {
