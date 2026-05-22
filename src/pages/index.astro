@@ -340,6 +340,7 @@ status: deployable</code></pre>
             <div class="demo-body">
               <span>{demo.type}</span>
               <h3>{demo.name}</h3>
+              <strong>Objetivo del proyecto</strong>
               <p>{demo.text}</p>
               <ul>
                 {demo.tags.map((tag) => <li>{tag}</li>)}
@@ -400,9 +401,11 @@ status: deployable</code></pre>
         <i></i>
       </div>
       <div class="mrz-build-map" aria-hidden="true">
-        <i></i>
-        <i></i>
-        <i></i>
+        <i class="nd" data-nd="0"></i>
+        <i class="nd" data-nd="1"></i>
+        <i class="nd" data-nd="2"></i>
+        <i class="ln" data-ln="0"></i>
+        <i class="ln" data-ln="1"></i>
       </div>
       <div class="mrz-sign-inner">
         <h2 id="built-title"><span>mrz</span><b>labs</b></h2>
@@ -519,6 +522,93 @@ status: deployable</code></pre>
       }
     });
   });
+
+  function initSig() {
+    const sig = document.querySelector('.mrz-signature');
+    if (!sig) return;
+    const bot = sig.querySelector('.mrz-bot');
+    const map = sig.querySelector('.mrz-build-map');
+    if (!bot || !map) return;
+    const nds = [...map.querySelectorAll('.nd')];
+    const lns = [...map.querySelectorAll('.ln')];
+    const tgs = [{ x: '4vw', y: '-12px' }, { x: '36vw', y: '-44px' }, { x: '76vw', y: '-20px' }];
+    let idx = 0;
+    let tmr = null;
+    let act = false;
+    let lhp = 0;
+
+    function setPos(t) {
+      bot.style.setProperty('--bx', t.x);
+      bot.style.setProperty('--by', t.y);
+    }
+
+    function reset() {
+      nds.forEach((n) => n.classList.remove('on'));
+      lns.forEach((l) => l.classList.remove('on'));
+    }
+
+    function step() {
+      if (!act) return;
+      setPos(tgs[idx]);
+      setTimeout(() => {
+        if (!act) return;
+        nds[idx]?.classList.add('on');
+        if (idx > 0) lns[idx - 1]?.classList.add('on');
+        idx += 1;
+        if (idx >= tgs.length) {
+          tmr = setTimeout(() => {
+            if (!act) return;
+            reset();
+            idx = 0;
+            tmr = setTimeout(step, 900);
+          }, 2400);
+        } else {
+          tmr = setTimeout(step, 1500);
+        }
+      }, 700);
+    }
+
+    function start() {
+      if (act) return;
+      act = true;
+      idx = 0;
+      reset();
+      step();
+    }
+
+    function stop() {
+      act = false;
+      if (tmr) {
+        clearTimeout(tmr);
+        tmr = null;
+      }
+      bot.style.removeProperty('--bx');
+      bot.style.removeProperty('--by');
+      reset();
+    }
+
+    const io = new IntersectionObserver((es) => {
+      es.forEach((e) => (e.isIntersecting ? start() : stop()));
+    }, { threshold: 0.3 });
+    io.observe(sig);
+
+    function hop() {
+      const t = Date.now();
+      if (t - lhp < 480) return;
+      lhp = t;
+      bot.classList.add('hop');
+      setTimeout(() => bot.classList.remove('hop'), 440);
+    }
+
+    window.addEventListener('pointermove', (event) => {
+      const r = bot.getBoundingClientRect();
+      if (!r.width) return;
+      const d = Math.hypot(event.clientX - r.left - r.width / 2, event.clientY - r.top - r.height / 2);
+      if (d < 150) hop();
+    }, { passive: true });
+  }
+
+  initSig();
 
   document.querySelectorAll('.built-form').forEach((form) => {
     form.addEventListener('submit', (event) => {
@@ -1039,22 +1129,24 @@ status: deployable</code></pre>
     left: 8%;
     bottom: 20px;
     z-index: 3;
-    width: 44px;
-    height: 38px;
+    width: 42px;
+    height: 36px;
     border: 2px solid rgba(233, 220, 255, 0.72);
-    border-radius: 15px 15px 12px 12px;
+    border-radius: 16px 16px 13px 13px;
     background: rgba(233, 220, 255, 0.92);
-    box-shadow: 0 0 34px rgba(111, 66, 193, 0.56);
-    animation: botRoam 9s ease-in-out infinite;
+    box-shadow: 0 0 30px rgba(111, 66, 193, 0.46);
+    transform: translate3d(var(--bx, 0px), calc(var(--by, 0px) + var(--hop, 0px)), 0);
+    transition: transform 1.3s cubic-bezier(0.45, 0.05, 0.25, 1);
+    animation: botBreathe 3.4s ease-in-out infinite;
   }
 
   .mrz-bot::before {
     content: '';
     position: absolute;
-    left: 20px;
-    top: -18px;
+    left: 19px;
+    top: -16px;
     width: 4px;
-    height: 16px;
+    height: 14px;
     background: #2b154f;
     border-radius: 99px;
   }
@@ -1062,21 +1154,22 @@ status: deployable</code></pre>
   .mrz-bot::after {
     content: '';
     position: absolute;
-    left: 15px;
-    top: -25px;
-    width: 13px;
-    height: 13px;
+    left: 14px;
+    top: -23px;
+    width: 12px;
+    height: 12px;
     background: #c084fc;
     border-radius: 50%;
     box-shadow: 0 0 20px #c084fc;
+    animation: botEye 2.2s ease-in-out infinite;
   }
 
   .mrz-bot span {
     position: absolute;
     left: 7px;
-    top: 13px;
+    top: 12px;
     width: 28px;
-    height: 15px;
+    height: 14px;
     border-radius: 11px;
     background: #1b1033;
   }
@@ -1086,8 +1179,8 @@ status: deployable</code></pre>
     content: '';
     position: absolute;
     top: 4px;
-    width: 7px;
-    height: 7px;
+    width: 6px;
+    height: 6px;
     background: #38f8d6;
     border-radius: 50%;
     box-shadow: 0 0 12px #38f8d6;
@@ -1101,69 +1194,83 @@ status: deployable</code></pre>
     left: 10px;
     bottom: -6px;
     width: 9px;
-    height: 8px;
+    height: 7px;
     background: #1b1033;
     border-radius: 0 0 5px 5px;
-    box-shadow: 16px 0 0 #1b1033;
+    box-shadow: 15px 0 0 #1b1033;
+  }
+
+  .mrz-bot.hop {
+    animation: botBreathe 3.4s ease-in-out infinite, botHop 0.42s cubic-bezier(0.3, 1.4, 0.5, 1);
   }
 
   .mrz-build-map {
     position: absolute;
     inset: 16px 6% 14px;
     z-index: 1;
-    opacity: 0.58;
     pointer-events: none;
   }
 
-  .mrz-build-map::before,
-  .mrz-build-map::after,
-  .mrz-build-map i {
-    content: '';
+  .mrz-build-map .nd {
     position: absolute;
-    border: 1px solid rgba(192, 132, 252, 0.72);
-    border-radius: 8px;
-    background: rgba(111, 66, 193, 0.16);
-    filter: drop-shadow(0 0 12px rgba(111, 66, 193, 0.5));
+    width: 54px;
+    height: 24px;
+    border: 1px solid rgba(192, 132, 252, 0.4);
+    border-radius: 7px;
+    background: rgba(111, 66, 193, 0.08);
+    opacity: 0.22;
+    transition: opacity 0.55s ease, box-shadow 0.55s ease, background 0.55s ease, transform 0.55s ease;
   }
 
-  .mrz-build-map::before {
+  .mrz-build-map .nd[data-nd="0"] {
     left: 8%;
     bottom: 18px;
-    width: 58px;
-    height: 26px;
-    animation: mapPulse 9s ease-in-out infinite;
   }
 
-  .mrz-build-map::after {
+  .mrz-build-map .nd[data-nd="1"] {
     left: 42%;
-    bottom: 56px;
-    width: 58px;
-    height: 26px;
-    animation: mapPulse 9s ease-in-out 2s infinite;
+    bottom: 54px;
   }
 
-  .mrz-build-map i:nth-child(1) {
+  .mrz-build-map .nd[data-nd="2"] {
     right: 9%;
     bottom: 28px;
-    width: 58px;
-    height: 26px;
-    animation: mapPulse 9s ease-in-out 4s infinite;
   }
 
-  .mrz-build-map i:nth-child(2) {
-    left: 18%;
-    bottom: 42px;
+  .mrz-build-map .nd.on {
+    opacity: 1;
+    box-shadow: 0 0 20px rgba(111, 66, 193, 0.75), inset 0 0 12px rgba(192, 132, 252, 0.3);
+    background: rgba(111, 66, 193, 0.24);
+    transform: scale(1.06);
+  }
+
+  .mrz-build-map .ln {
+    position: absolute;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(192, 132, 252, 0.85), transparent);
+    opacity: 0;
+    transition: opacity 0.7s ease, transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .mrz-build-map .ln[data-ln="0"] {
+    left: 14%;
+    bottom: 40px;
     width: 30%;
-    height: 1px;
-    border-radius: 999px;
+    transform: scaleX(0);
+    transform-origin: left center;
   }
 
-  .mrz-build-map i:nth-child(3) {
-    right: 18%;
-    bottom: 52px;
-    width: 28%;
-    height: 1px;
-    border-radius: 999px;
+  .mrz-build-map .ln[data-ln="1"] {
+    right: 14%;
+    bottom: 46px;
+    width: 30%;
+    transform: scaleX(0);
+    transform-origin: right center;
+  }
+
+  .mrz-build-map .ln.on {
+    opacity: 1;
+    transform: scaleX(1);
   }
 
   .mrz-sign-inner {
@@ -1171,16 +1278,20 @@ status: deployable</code></pre>
     z-index: 2;
   }
 
-  @keyframes botRoam {
-    0%, 100% { transform: translate(0, 0) rotate(0deg); }
-    25% { transform: translate(34vw, -34px) rotate(3deg); }
-    50% { transform: translate(72vw, 0) rotate(-3deg); }
-    75% { transform: translate(38vw, -18px) rotate(2deg); }
+  @keyframes botBreathe {
+    0%, 100% { filter: drop-shadow(0 0 10px rgba(192, 132, 252, 0.45)); }
+    50% { filter: drop-shadow(0 0 20px rgba(192, 132, 252, 0.85)); }
   }
 
-  @keyframes mapPulse {
-    0%, 100% { opacity: 0.2; transform: scale(0.94); }
-    40%, 70% { opacity: 1; transform: scale(1); }
+  @keyframes botEye {
+    0%, 90%, 100% { transform: scaleY(1); }
+    94% { transform: scaleY(0.15); }
+  }
+
+  @keyframes botHop {
+    0%, 100% { --hop: 0px; }
+    45% { --hop: -12px; }
+    70% { --hop: -4px; }
   }
 
   .tabs-shell {
@@ -1259,18 +1370,25 @@ status: deployable</code></pre>
   }
 
   .demo-grid {
-    display: grid;
-    gap: 18px;
+    display: flex;
+    gap: 22px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 0 0 18px;
+    scrollbar-color: #ff6b00 rgba(244, 239, 229, 0.12);
   }
 
   .demo-card {
+    flex: 0 0 min(1040px, 88vw);
+    scroll-snap-align: center;
     display: grid;
-    grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
-    min-height: 420px;
+    grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.65fr);
+    min-height: 460px;
     overflow: hidden;
     background: #141821;
     border: 1px solid rgba(244, 239, 229, 0.16);
     border-radius: 8px;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.24);
   }
 
   .demo-frame {
@@ -1343,6 +1461,14 @@ status: deployable</code></pre>
     display: flex;
     flex-direction: column;
     padding: 26px;
+  }
+
+  .demo-body > strong {
+    margin: 8px 0 10px;
+    color: #ff8a3d;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
   }
 
   .demo-body p,
@@ -1490,7 +1616,13 @@ status: deployable</code></pre>
     }
 
     .mrz-bot {
-      animation: botRoamMobile 7s ease-in-out infinite;
+      width: 36px;
+      height: 30px;
+    }
+
+    .mrz-build-map .nd {
+      width: 38px;
+      height: 20px;
     }
 
     h1 {
@@ -1509,8 +1641,4 @@ status: deployable</code></pre>
     }
   }
 
-  @keyframes botRoamMobile {
-    0%, 100% { transform: translate(0, 0); }
-    50% { transform: translate(62vw, -12px); }
-  }
 </style>
