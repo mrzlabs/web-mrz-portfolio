@@ -1,4 +1,7 @@
 ---
+import Starfield from '../components/Starfield.astro';
+import MrzBot from '../components/MrzBot.astro';
+
 interface Props {
   title?: string;
   description?: string;
@@ -21,18 +24,24 @@ const {
     <title>{title}</title>
   </head>
   <body>
+    <Starfield />
     <slot />
+    <MrzBot />
   </body>
 </html>
 
 <style is:global>
   :root {
-    color-scheme: light;
-    --bg: #f5efe2;
-    --ink: #171717;
-    --muted: #5f6470;
-    --line: #d9d3c8;
-    --panel: #fffdf8;
+    color-scheme: dark;
+    --bg: #070315;
+    --ink: #f4efe5;
+    --purple-light: #c084fc;
+    --purple-mid: #8b5cf6;
+    --purple-dark: #070315;
+    --cyan: #38f8d6;
+    --muted: #a0aec0;
+    --line: #2d1b4e;
+    --panel: #0f0a1f;
     --blue: #1f5eff;
     --green: #1b7f5a;
     --amber: #b96f16;
