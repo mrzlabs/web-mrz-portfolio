@@ -544,12 +544,15 @@ status: deployable</code></pre>
     const lns = [...map.querySelectorAll('.ln')];
     const routes = [...map.querySelectorAll('.net-routes path')];
     const tgs = [
-      { x: '2vw', y: '-8px' },
-      { x: '18vw', y: '-54px' },
-      { x: '36vw', y: '-28px' },
-      { x: '52vw', y: '-68px' },
-      { x: '68vw', y: '-34px' },
-      { x: '80vw', y: '-58px' },
+      { x: '-4vw', y: '-18px' },
+      { x: '12vw', y: '-72px' },
+      { x: '28vw', y: '-20px' },
+      { x: '44vw', y: '-96px' },
+      { x: '63vw', y: '-32px' },
+      { x: '82vw', y: '-76px' },
+      { x: '94vw', y: '-160px' },
+      { x: '48vw', y: '-220px' },
+      { x: '8vw', y: '-185px' },
     ];
     let idx = 0;
     let tmr = null;
@@ -577,26 +580,19 @@ status: deployable</code></pre>
 
     function step() {
       if (!act) return;
+      const next = Math.floor(Math.random() * tgs.length);
+      idx = next === idx ? (next + 3) % tgs.length : next;
       setPos(tgs[idx]);
       setTimeout(() => {
         if (!act) return;
-        nds[idx]?.classList.add('on');
-        if (idx > 0) lns[idx - 1]?.classList.add('on');
-        routes[idx % routes.length]?.classList.remove('on');
-        void routes[idx % routes.length]?.getBoundingClientRect();
-        routes[idx % routes.length]?.classList.add('on');
-        idx += 1;
-        if (idx >= tgs.length) {
-          tmr = setTimeout(() => {
-            if (!act) return;
-            reset();
-            idx = 0;
-            tmr = setTimeout(step, 900);
-          }, 2400);
-        } else {
-          tmr = setTimeout(step, 1500);
+        const route = routes[Math.floor(Math.random() * routes.length)];
+        if (route) {
+          route.classList.remove('on');
+          void route.getBoundingClientRect();
+          route.classList.add('on');
         }
-      }, 700);
+        tmr = setTimeout(step, 2200 + Math.random() * 2100);
+      }, 900);
     }
 
     function start() {
@@ -1172,7 +1168,7 @@ status: deployable</code></pre>
     background: rgba(233, 220, 255, 0.92);
     box-shadow: 0 0 30px rgba(111, 66, 193, 0.46);
     transform: translate3d(var(--bx, 0px), calc(var(--by, 0px) + var(--hop, 0px)), 0);
-    transition: transform 1.3s cubic-bezier(0.45, 0.05, 0.25, 1);
+    transition: transform 2.8s cubic-bezier(0.45, 0.05, 0.25, 1);
     animation: botBreathe 3.4s ease-in-out infinite;
     cursor: pointer;
     pointer-events: auto;
@@ -1254,35 +1250,28 @@ status: deployable</code></pre>
     inset: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.95;
+    opacity: 0.34;
     overflow: visible;
   }
 
   .net-routes path {
     fill: none;
-    stroke: rgba(255, 216, 0, 0.98);
-    stroke-width: 10;
+    stroke: rgba(192, 132, 252, 0.18);
+    stroke-width: 3;
     stroke-linecap: round;
     stroke-linejoin: round;
-    stroke-dasharray: 180 760;
+    stroke-dasharray: 18 44;
     stroke-dashoffset: 880;
     opacity: 0;
-    filter: drop-shadow(0 0 8px rgba(255, 216, 0, 0.45));
+    filter: drop-shadow(0 0 5px rgba(192, 132, 252, 0.22));
   }
 
   .net-routes path.on {
-    animation: routeSketch 2.1s cubic-bezier(0.34, 0.04, 0.18, 1) both;
+    animation: routeSketch 4.8s cubic-bezier(0.34, 0.04, 0.18, 1) both;
   }
 
   .mrz-build-map .nd {
-    position: absolute;
-    width: 54px;
-    height: 24px;
-    border: 1px solid rgba(192, 132, 252, 0.4);
-    border-radius: 7px;
-    background: rgba(111, 66, 193, 0.08);
-    opacity: 0.22;
-    transition: opacity 0.55s ease, box-shadow 0.55s ease, background 0.55s ease, transform 0.55s ease;
+    display: none;
   }
 
   .mrz-build-map .nd[data-nd="0"] {
@@ -1316,18 +1305,11 @@ status: deployable</code></pre>
   }
 
   .mrz-build-map .nd.on {
-    opacity: 1;
-    box-shadow: 0 0 20px rgba(111, 66, 193, 0.75), inset 0 0 12px rgba(192, 132, 252, 0.3);
-    background: rgba(111, 66, 193, 0.24);
-    transform: scale(1.06);
+    display: none;
   }
 
   .mrz-build-map .ln {
-    position: absolute;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(192, 132, 252, 0.64), transparent);
-    opacity: 0;
-    filter: drop-shadow(0 0 10px rgba(192, 132, 252, 0.46));
+    display: none;
   }
 
   .mrz-build-map .ln::before {
@@ -1425,8 +1407,8 @@ status: deployable</code></pre>
 
   @keyframes routeSketch {
     0% { opacity: 0; stroke-dashoffset: 880; }
-    16% { opacity: 1; }
-    74% { opacity: 0.95; stroke-dashoffset: 0; }
+    22% { opacity: 0.22; }
+    78% { opacity: 0.14; stroke-dashoffset: 0; }
     100% { opacity: 0; stroke-dashoffset: -220; }
   }
 
