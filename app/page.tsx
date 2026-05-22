@@ -49,18 +49,21 @@ const projects = [
     tag: "Comercio B2B",
     href: "https://mrzlabs.github.io/web-impermeables-cliente/",
     objective: "Presencia digital, captación de leads y propuesta técnica comercial.",
+    useCase: "Growth stack",
   },
   {
     name: "Seguridad Social SAS",
     tag: "Servicios",
     href: "https://asesoriasas.com",
     objective: "Cotización, rutas de servicio y mejora de conversión para independientes.",
+    useCase: "Landing + CRM",
   },
   {
     name: "Top Ink",
     tag: "Marca creativa",
     href: "https://amtz-dev.github.io/topink-landing_1/",
     objective: "Landing visual, catálogo base y posicionamiento de servicio.",
+    useCase: "Marca + catálogo",
   },
 ];
 
@@ -170,10 +173,16 @@ export default function Home() {
         <div className="project-rail">
           {projects.map((project) => (
             <a className="project-banner" href={project.href} target="_blank" rel="noreferrer" key={project.name}>
-              <span>{project.tag}</span>
-              <h3>{project.name}</h3>
-              <p>{project.objective}</p>
-              <b>Ver demo</b>
+              <div className="project-shot" aria-hidden="true">
+                <iframe src={project.href} title="" loading="lazy" tabIndex={-1} />
+              </div>
+              <div className="project-info">
+                <span>{project.tag}</span>
+                <h3>{project.name}</h3>
+                <p>{project.objective}</p>
+                <small>{project.useCase}</small>
+                <b>Ver demo</b>
+              </div>
             </a>
           ))}
         </div>
