@@ -1,4 +1,5 @@
 import GlobalBot from "./ui/GlobalBot";
+import FrontendLab from "./ui/FrontendLab";
 
 const stack = [
   "Next.js",
@@ -158,6 +159,7 @@ export default function Home() {
             <span key={item}>{item}</span>
           ))}
         </div>
+        <FrontendLab />
       </section>
 
       <section className="section" id="proyectos">

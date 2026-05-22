@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import type { CSSProperties } from "react";
 import { motion } from "framer-motion";
 
@@ -24,31 +24,33 @@ function mkPath(points: Point[]) {
 export default function GlobalBot() {
   const [pos, setPos] = useState<Point>({ x: 86, y: 72 });
   const [trail, setTrail] = useState<Point[]>([]);
-  const seed = useMemo(
-    () => [
-      { x: 86, y: 72 },
-      { x: 78, y: 18 },
-      { x: 58, y: 38 },
-      { x: 22, y: 28 },
-      { x: 12, y: 74 },
-      { x: 45, y: 82 },
-      { x: 90, y: 52 },
-    ],
-    [],
-  );
 
   useEffect(() => {
-    let idx = 0;
+    let current = { x: 86, y: 72 };
+    let vector = { x: -10, y: 7 };
     const move = () => {
-      idx = (idx + 1) % seed.length;
-      const next = seed[idx];
+      const jitter = {
+        x: (Math.random() - 0.5) * 28,
+        y: (Math.random() - 0.5) * 22,
+      };
+      vector = {
+        x: vector.x * 0.52 + jitter.x,
+        y: vector.y * 0.52 + jitter.y,
+      };
+      const next = {
+        x: Math.min(94, Math.max(6, current.x + vector.x)),
+        y: Math.min(88, Math.max(10, current.y + vector.y)),
+      };
+      if (next.x === 6 || next.x === 94) vector.x *= -1;
+      if (next.y === 10 || next.y === 88) vector.y *= -1;
+      current = next;
       setPos(next);
-      setTrail((current) => [...current.slice(-7), next]);
+      setTrail((points) => [...points.slice(-11), next]);
     };
-    const timer = window.setInterval(move, 3600);
+    const timer = window.setInterval(move, 2900);
     move();
     return () => window.clearInterval(timer);
-  }, [seed]);
+  }, []);
 
   const goContact = () => {
     document.querySelector("#contacto")?.scrollIntoView({ behavior: "smooth", block: "start" });
