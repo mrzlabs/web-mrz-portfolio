@@ -396,16 +396,27 @@ status: deployable</code></pre>
     </section>
 
     <section class="mrz-signature" aria-labelledby="built-title">
-      <div class="mrz-bot" aria-hidden="true">
+      <button class="mrz-bot" type="button" aria-label="Abrir propuesta mrzlabs">
         <span></span>
         <i></i>
-      </div>
+      </button>
       <div class="mrz-build-map" aria-hidden="true">
+        <svg class="net-routes" viewBox="0 0 1000 190" preserveAspectRatio="none">
+          <path data-route="0" d="M20 118 C80 28 126 175 194 86 S328 12 390 96 S514 172 590 72 S724 12 808 104 S930 178 980 54" />
+          <path data-route="1" d="M48 146 C132 70 196 210 270 138 S386 50 472 116 S612 174 694 84 S836 42 964 132" />
+          <path data-route="2" d="M18 78 C98 156 152 18 236 54 S340 150 430 40 S558 140 650 52 S772 176 862 44 S940 24 988 98" />
+        </svg>
         <i class="nd" data-nd="0"></i>
         <i class="nd" data-nd="1"></i>
         <i class="nd" data-nd="2"></i>
+        <i class="nd" data-nd="3"></i>
+        <i class="nd" data-nd="4"></i>
+        <i class="nd" data-nd="5"></i>
         <i class="ln" data-ln="0"></i>
         <i class="ln" data-ln="1"></i>
+        <i class="ln" data-ln="2"></i>
+        <i class="ln" data-ln="3"></i>
+        <i class="ln" data-ln="4"></i>
       </div>
       <div class="mrz-sign-inner">
         <h2 id="built-title"><span>mrz</span><b>labs</b></h2>
@@ -531,7 +542,15 @@ status: deployable</code></pre>
     if (!bot || !map) return;
     const nds = [...map.querySelectorAll('.nd')];
     const lns = [...map.querySelectorAll('.ln')];
-    const tgs = [{ x: '4vw', y: '-12px' }, { x: '36vw', y: '-44px' }, { x: '76vw', y: '-20px' }];
+    const routes = [...map.querySelectorAll('.net-routes path')];
+    const tgs = [
+      { x: '2vw', y: '-8px' },
+      { x: '18vw', y: '-54px' },
+      { x: '36vw', y: '-28px' },
+      { x: '52vw', y: '-68px' },
+      { x: '68vw', y: '-34px' },
+      { x: '80vw', y: '-58px' },
+    ];
     let idx = 0;
     let tmr = null;
     let act = false;
@@ -545,6 +564,15 @@ status: deployable</code></pre>
     function reset() {
       nds.forEach((n) => n.classList.remove('on'));
       lns.forEach((l) => l.classList.remove('on'));
+      routes.forEach((r) => r.classList.remove('on'));
+    }
+
+    function openBuilt() {
+      const toggle = sig.querySelector('[data-built-toggle]');
+      const panel = sig.querySelector('[data-built-panel]');
+      sig.classList.add('is-open');
+      toggle?.setAttribute('aria-expanded', 'true');
+      panel?.setAttribute('aria-hidden', 'false');
     }
 
     function step() {
@@ -554,6 +582,9 @@ status: deployable</code></pre>
         if (!act) return;
         nds[idx]?.classList.add('on');
         if (idx > 0) lns[idx - 1]?.classList.add('on');
+        routes[idx % routes.length]?.classList.remove('on');
+        void routes[idx % routes.length]?.getBoundingClientRect();
+        routes[idx % routes.length]?.classList.add('on');
         idx += 1;
         if (idx >= tgs.length) {
           tmr = setTimeout(() => {
@@ -606,6 +637,8 @@ status: deployable</code></pre>
       const d = Math.hypot(event.clientX - r.left - r.width / 2, event.clientY - r.top - r.height / 2);
       if (d < 150) hop();
     }, { passive: true });
+
+    bot.addEventListener('click', openBuilt);
   }
 
   initSig();
@@ -963,12 +996,13 @@ status: deployable</code></pre>
     background: #0b1220;
     color: #f4efe5;
     text-align: center;
-    overflow: hidden;
+    overflow: visible;
   }
 
   .mrz-sign-inner {
     max-width: 720px;
     margin: 0 auto;
+    pointer-events: none;
   }
 
   .mrz-signature h2 {
@@ -1006,9 +1040,9 @@ status: deployable</code></pre>
   }
 
   .built-overlay {
-    position: absolute;
+    position: fixed;
     inset: 0;
-    z-index: 8;
+    z-index: 80;
     display: grid;
     place-items: center;
     padding: 18px;
@@ -1128,7 +1162,9 @@ status: deployable</code></pre>
     position: absolute;
     left: 8%;
     bottom: 20px;
-    z-index: 3;
+    z-index: 1;
+    padding: 0;
+    border: 0;
     width: 42px;
     height: 36px;
     border: 2px solid rgba(233, 220, 255, 0.72);
@@ -1138,6 +1174,8 @@ status: deployable</code></pre>
     transform: translate3d(var(--bx, 0px), calc(var(--by, 0px) + var(--hop, 0px)), 0);
     transition: transform 1.3s cubic-bezier(0.45, 0.05, 0.25, 1);
     animation: botBreathe 3.4s ease-in-out infinite;
+    cursor: pointer;
+    pointer-events: auto;
   }
 
   .mrz-bot::before {
@@ -1206,9 +1244,34 @@ status: deployable</code></pre>
 
   .mrz-build-map {
     position: absolute;
-    inset: 16px 6% 14px;
-    z-index: 1;
+    inset: -36px 0 -28px;
+    z-index: 0;
     pointer-events: none;
+  }
+
+  .net-routes {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.95;
+    overflow: visible;
+  }
+
+  .net-routes path {
+    fill: none;
+    stroke: rgba(255, 216, 0, 0.98);
+    stroke-width: 10;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 180 760;
+    stroke-dashoffset: 880;
+    opacity: 0;
+    filter: drop-shadow(0 0 8px rgba(255, 216, 0, 0.45));
+  }
+
+  .net-routes path.on {
+    animation: routeSketch 2.1s cubic-bezier(0.34, 0.04, 0.18, 1) both;
   }
 
   .mrz-build-map .nd {
@@ -1233,8 +1296,23 @@ status: deployable</code></pre>
   }
 
   .mrz-build-map .nd[data-nd="2"] {
-    right: 9%;
+    left: 76%;
     bottom: 28px;
+  }
+
+  .mrz-build-map .nd[data-nd="3"] {
+    left: 24%;
+    bottom: 82px;
+  }
+
+  .mrz-build-map .nd[data-nd="4"] {
+    left: 58%;
+    bottom: 88px;
+  }
+
+  .mrz-build-map .nd[data-nd="5"] {
+    right: 5%;
+    bottom: 74px;
   }
 
   .mrz-build-map .nd.on {
@@ -1246,10 +1324,21 @@ status: deployable</code></pre>
 
   .mrz-build-map .ln {
     position: absolute;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(192, 132, 252, 0.85), transparent);
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(192, 132, 252, 0.64), transparent);
     opacity: 0;
-    transition: opacity 0.7s ease, transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 0 10px rgba(192, 132, 252, 0.46));
+  }
+
+  .mrz-build-map .ln::before {
+    content: '';
+    position: absolute;
+    inset: -5px 0;
+    background:
+      radial-gradient(circle, rgba(56, 248, 214, 0.95) 0 2px, transparent 3px) 0 50% / 18px 10px repeat-x,
+      radial-gradient(circle, rgba(192, 132, 252, 0.78) 0 1px, transparent 3px) 9px 50% / 22px 10px repeat-x;
+    opacity: 0;
+    transform: translateX(-16px);
   }
 
   .mrz-build-map .ln[data-ln="0"] {
@@ -1261,16 +1350,44 @@ status: deployable</code></pre>
   }
 
   .mrz-build-map .ln[data-ln="1"] {
-    right: 14%;
+    left: 46%;
     bottom: 46px;
     width: 30%;
     transform: scaleX(0);
-    transform-origin: right center;
+    transform-origin: left center;
+  }
+
+  .mrz-build-map .ln[data-ln="2"] {
+    left: 24%;
+    bottom: 78px;
+    width: 34%;
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+
+  .mrz-build-map .ln[data-ln="3"] {
+    left: 62%;
+    bottom: 82px;
+    width: 22%;
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+
+  .mrz-build-map .ln[data-ln="4"] {
+    left: 78%;
+    bottom: 68px;
+    width: 17%;
+    transform: scaleX(0);
+    transform-origin: left center;
   }
 
   .mrz-build-map .ln.on {
-    opacity: 1;
+    animation: netLine 1.35s ease both;
     transform: scaleX(1);
+  }
+
+  .mrz-build-map .ln.on::before {
+    animation: netDots 1.35s ease both;
   }
 
   .mrz-sign-inner {
@@ -1292,6 +1409,25 @@ status: deployable</code></pre>
     0%, 100% { --hop: 0px; }
     45% { --hop: -12px; }
     70% { --hop: -4px; }
+  }
+
+  @keyframes netLine {
+    0% { opacity: 0; transform: scaleX(0); }
+    38% { opacity: 0.9; }
+    100% { opacity: 0.24; transform: scaleX(1); }
+  }
+
+  @keyframes netDots {
+    0% { opacity: 0; transform: translateX(-18px); }
+    34% { opacity: 1; }
+    100% { opacity: 0; transform: translateX(18px); }
+  }
+
+  @keyframes routeSketch {
+    0% { opacity: 0; stroke-dashoffset: 880; }
+    16% { opacity: 1; }
+    74% { opacity: 0.95; stroke-dashoffset: 0; }
+    100% { opacity: 0; stroke-dashoffset: -220; }
   }
 
   .tabs-shell {
