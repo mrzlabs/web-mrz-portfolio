@@ -406,9 +406,12 @@ status: deployable</code></pre>
       </div>
       <div class="mrz-sign-inner">
         <h2 id="built-title"><span>mrz</span><b>labs</b></h2>
-        <button class="built-toggle" type="button" data-built-toggle>Built by mrzlabs</button>
+        <button class="built-toggle" type="button" data-built-toggle aria-expanded="false">Built by mrzlabs</button>
         <p>Captamos, automatizamos, escalamos. Sin fricción, con evidencia.</p>
-        <div class="built-panel" data-built-panel>
+      </div>
+      <div class="built-overlay" data-built-panel aria-hidden="true">
+        <div class="built-modal">
+          <button class="built-close" type="button" data-built-close aria-label="Cerrar">×</button>
           <div>
             <strong>Arquitectura progresiva</strong>
             <p>Infraestructura digital escalable para empresas que quieren crecer con propósito. Arquitectura progresiva, seguridad real, sin amarres.</p>
@@ -490,7 +493,30 @@ status: deployable</code></pre>
 
   document.querySelectorAll('[data-built-toggle]').forEach((button) => {
     button.addEventListener('click', () => {
-      button.closest('.mrz-signature')?.classList.toggle('is-open');
+      const sign = button.closest('.mrz-signature');
+      sign?.classList.add('is-open');
+      button.setAttribute('aria-expanded', 'true');
+      sign?.querySelector('[data-built-panel]')?.setAttribute('aria-hidden', 'false');
+    });
+  });
+
+  document.querySelectorAll('[data-built-close]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const sign = button.closest('.mrz-signature');
+      sign?.classList.remove('is-open');
+      sign?.querySelector('[data-built-toggle]')?.setAttribute('aria-expanded', 'false');
+      sign?.querySelector('[data-built-panel]')?.setAttribute('aria-hidden', 'true');
+    });
+  });
+
+  document.querySelectorAll('[data-built-panel]').forEach((panel) => {
+    panel.addEventListener('click', (event) => {
+      if (event.target === panel) {
+        const sign = panel.closest('.mrz-signature');
+        sign?.classList.remove('is-open');
+        sign?.querySelector('[data-built-toggle]')?.setAttribute('aria-expanded', 'false');
+        panel.setAttribute('aria-hidden', 'true');
+      }
     });
   });
 
@@ -889,33 +915,61 @@ status: deployable</code></pre>
     line-height: 1.6;
   }
 
-  .built-panel {
-    max-height: 0;
+  .built-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 8;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-    margin-top: 0;
-    overflow: hidden;
+    place-items: center;
+    padding: 18px;
+    background: rgba(11, 18, 32, 0.46);
+    backdrop-filter: blur(8px);
     opacity: 0;
-    transition: max-height 0.35s ease, opacity 0.25s ease, margin 0.25s ease;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
     text-align: left;
   }
 
-  .mrz-signature.is-open .built-panel {
-    max-height: 640px;
-    margin-top: 28px;
+  .mrz-signature.is-open .built-overlay {
     opacity: 1;
+    pointer-events: auto;
   }
 
-  .built-panel > div,
+  .built-modal {
+    position: relative;
+    width: min(760px, 100%);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    padding: 20px;
+    border: 1px solid rgba(255, 107, 0, 0.46);
+    border-radius: 18px;
+    background: rgba(11, 18, 32, 0.88);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+  }
+
+  .built-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    border: 1px solid rgba(244, 239, 229, 0.22);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    color: #f4efe5;
+    cursor: pointer;
+  }
+
+  .built-modal > div,
   .built-form {
     padding: 18px;
     border: 1px solid rgba(244, 239, 229, 0.14);
-    border-radius: 8px;
+    border-radius: 12px;
     background: rgba(255, 255, 255, 0.04);
   }
 
-  .built-panel strong {
+  .built-modal strong {
     display: block;
     color: #ff6b00;
     font-size: 0.78rem;
@@ -923,7 +977,13 @@ status: deployable</code></pre>
     text-transform: uppercase;
   }
 
-  .built-panel ol {
+  .built-modal p {
+    color: rgba(244, 239, 229, 0.72);
+    font-size: 0.92rem;
+    line-height: 1.52;
+  }
+
+  .built-modal ol {
     display: grid;
     gap: 8px;
     margin: 16px 0 0;
@@ -939,7 +999,7 @@ status: deployable</code></pre>
     gap: 10px;
   }
 
-  .built-panel a,
+  .built-modal a,
   .built-form button {
     display: inline-flex;
     justify-content: center;
@@ -976,24 +1036,25 @@ status: deployable</code></pre>
 
   .mrz-bot {
     position: absolute;
-    right: clamp(22px, 8vw, 92px);
-    bottom: 24px;
-    width: 58px;
-    height: 52px;
+    left: 8%;
+    bottom: 20px;
+    z-index: 3;
+    width: 44px;
+    height: 38px;
     border: 2px solid rgba(233, 220, 255, 0.72);
-    border-radius: 18px 18px 15px 15px;
+    border-radius: 15px 15px 12px 12px;
     background: rgba(233, 220, 255, 0.92);
-    box-shadow: 0 0 36px rgba(111, 66, 193, 0.46);
-    animation: botWork 2.1s ease-in-out infinite;
+    box-shadow: 0 0 34px rgba(111, 66, 193, 0.56);
+    animation: botRoam 9s ease-in-out infinite;
   }
 
   .mrz-bot::before {
     content: '';
     position: absolute;
-    left: 27px;
-    top: -22px;
-    width: 5px;
-    height: 20px;
+    left: 20px;
+    top: -18px;
+    width: 4px;
+    height: 16px;
     background: #2b154f;
     border-radius: 99px;
   }
@@ -1001,10 +1062,10 @@ status: deployable</code></pre>
   .mrz-bot::after {
     content: '';
     position: absolute;
-    left: 21px;
-    top: -30px;
-    width: 15px;
-    height: 15px;
+    left: 15px;
+    top: -25px;
+    width: 13px;
+    height: 13px;
     background: #c084fc;
     border-radius: 50%;
     box-shadow: 0 0 20px #c084fc;
@@ -1012,11 +1073,11 @@ status: deployable</code></pre>
 
   .mrz-bot span {
     position: absolute;
-    left: 10px;
-    top: 18px;
-    width: 36px;
-    height: 18px;
-    border-radius: 12px;
+    left: 7px;
+    top: 13px;
+    width: 28px;
+    height: 15px;
+    border-radius: 11px;
     background: #1b1033;
   }
 
@@ -1024,45 +1085,34 @@ status: deployable</code></pre>
   .mrz-bot span::after {
     content: '';
     position: absolute;
-    top: 5px;
-    width: 10px;
-    height: 10px;
+    top: 4px;
+    width: 7px;
+    height: 7px;
     background: #38f8d6;
     border-radius: 50%;
     box-shadow: 0 0 12px #38f8d6;
   }
 
-  .mrz-bot span::before {
-    left: 7px;
-  }
-
-  .mrz-bot span::after {
-    right: 7px;
-  }
+  .mrz-bot span::before { left: 6px; }
+  .mrz-bot span::after { right: 6px; }
 
   .mrz-bot i {
     position: absolute;
-    left: 15px;
-    bottom: -7px;
-    width: 12px;
-    height: 10px;
+    left: 10px;
+    bottom: -6px;
+    width: 9px;
+    height: 8px;
     background: #1b1033;
-    border-radius: 0 0 6px 6px;
-    box-shadow: 18px 0 0 #1b1033;
-  }
-
-  .mrz-signature:hover .mrz-bot {
-    animation-duration: 0.7s;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 16px 0 0 #1b1033;
   }
 
   .mrz-build-map {
     position: absolute;
-    right: clamp(82px, 13vw, 170px);
-    bottom: 32px;
-    width: 190px;
-    height: 78px;
-    opacity: 0.34;
-    filter: drop-shadow(0 0 16px rgba(111, 66, 193, 0.5));
+    inset: 16px 6% 14px;
+    z-index: 1;
+    opacity: 0.58;
+    pointer-events: none;
   }
 
   .mrz-build-map::before,
@@ -1072,54 +1122,65 @@ status: deployable</code></pre>
     position: absolute;
     border: 1px solid rgba(192, 132, 252, 0.72);
     border-radius: 8px;
-    background: rgba(111, 66, 193, 0.18);
+    background: rgba(111, 66, 193, 0.16);
+    filter: drop-shadow(0 0 12px rgba(111, 66, 193, 0.5));
   }
 
   .mrz-build-map::before {
-    left: 0;
-    bottom: 0;
+    left: 8%;
+    bottom: 18px;
     width: 58px;
-    height: 28px;
+    height: 26px;
+    animation: mapPulse 9s ease-in-out infinite;
   }
 
   .mrz-build-map::after {
-    left: 66px;
-    bottom: 20px;
+    left: 42%;
+    bottom: 56px;
     width: 58px;
-    height: 28px;
+    height: 26px;
+    animation: mapPulse 9s ease-in-out 2s infinite;
   }
 
   .mrz-build-map i:nth-child(1) {
-    left: 132px;
-    bottom: 42px;
-    width: 48px;
-    height: 28px;
+    right: 9%;
+    bottom: 28px;
+    width: 58px;
+    height: 26px;
+    animation: mapPulse 9s ease-in-out 4s infinite;
   }
 
   .mrz-build-map i:nth-child(2) {
-    left: 52px;
-    bottom: 14px;
-    width: 62px;
+    left: 18%;
+    bottom: 42px;
+    width: 30%;
     height: 1px;
     border-radius: 999px;
   }
 
   .mrz-build-map i:nth-child(3) {
-    left: 116px;
-    bottom: 38px;
-    width: 38px;
+    right: 18%;
+    bottom: 52px;
+    width: 28%;
     height: 1px;
     border-radius: 999px;
   }
 
-  .mrz-signature.is-open .mrz-build-map {
-    opacity: 0.9;
+  .mrz-sign-inner {
+    position: relative;
+    z-index: 2;
   }
 
-  @keyframes botWork {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    35% { transform: translateY(-8px) rotate(-2deg); }
-    70% { transform: translateY(-3px) rotate(2deg); }
+  @keyframes botRoam {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(34vw, -34px) rotate(3deg); }
+    50% { transform: translate(72vw, 0) rotate(-3deg); }
+    75% { transform: translate(38vw, -18px) rotate(2deg); }
+  }
+
+  @keyframes mapPulse {
+    0%, 100% { opacity: 0.2; transform: scale(0.94); }
+    40%, 70% { opacity: 1; transform: scale(1); }
   }
 
   .tabs-shell {
@@ -1380,7 +1441,7 @@ status: deployable</code></pre>
     .demo-card,
     .lab-grid,
     .solution-grid,
-    .built-panel {
+    .built-modal {
       grid-template-columns: 1fr;
     }
 
@@ -1429,10 +1490,7 @@ status: deployable</code></pre>
     }
 
     .mrz-bot {
-      position: relative;
-      right: auto;
-      bottom: auto;
-      margin: 0 auto 18px;
+      animation: botRoamMobile 7s ease-in-out infinite;
     }
 
     h1 {
@@ -1449,5 +1507,10 @@ status: deployable</code></pre>
     .demo-frame iframe {
       min-height: 320px;
     }
+  }
+
+  @keyframes botRoamMobile {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(62vw, -12px); }
   }
 </style>
