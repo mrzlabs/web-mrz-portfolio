@@ -41,7 +41,7 @@ const demos = [
 ];
 
 const matrix = [
-  ['Frontend', 'Astro, HTML, CSS, JavaScript, responsive UI, componentes, accesibilidad base'],
+  ['Frontend', 'Astro, React, Angular, HTML, CSS, JavaScript, responsive UI, componentes, accesibilidad base'],
   ['Backend', 'Apps Script Web Apps, APIs REST, Node base, endpoints, validacion de payloads'],
   ['Datos', 'SQL, PostgreSQL, Sheets como backend operativo, normalizacion, KPIs, Looker Studio'],
   ['IA y LLMs', 'prompts, flujos asistidos, clasificacion, soporte, resumentes, copilotos internos'],
@@ -67,6 +67,32 @@ const routeLead = (lead) => {
   if (lead.source === 'google_ads') return 'remarketing';
   return 'nutricion';
 };`,
+  },
+  {
+    id: 'react',
+    label: 'React',
+    title: 'CRM con estado',
+    code: `function LeadBoard({ leads }) {
+  const hot = leads.filter((lead) => lead.score >= 80);
+
+  return hot.map((lead) => (
+    <LeadCard key={lead.id} lead={lead} />
+  ));
+}`,
+  },
+  {
+    id: 'ng',
+    label: 'Angular',
+    title: 'Formulario corporativo',
+    code: `leadForm = this.fb.group({
+  nombre: ['', Validators.required],
+  telefono: ['', [Validators.required]],
+  servicio: ['', Validators.required]
+});
+
+saveLead() {
+  return this.crm.create(this.leadForm.value);
+}`,
   },
   {
     id: 'sql',
