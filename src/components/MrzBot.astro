@@ -1,4 +1,5 @@
 <div class="mrz-signature" aria-labelledby="built-title">
+  <canvas class="mrz-neural-canvas" aria-hidden="true"></canvas>
   <button class="mrz-bot" type="button" aria-label="Abrir propuesta mrzlabs">
     <span></span>
     <i></i>
@@ -88,6 +89,141 @@
     let tmr = null;
     let act = false;
     let lhp = 0;
+
+    function initNeuralCanvas() {
+      const cv = sig.querySelector('.mrz-neural-canvas');
+      const ctx = cv?.getContext('2d');
+      if (!cv || !ctx) return;
+
+      let w = 0;
+      let h = 0;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const qty = 86;
+      const maxDist = 142;
+      const particles = [];
+      const pulses = [];
+
+      function fit() {
+        const rect = sig.getBoundingClientRect();
+        w = rect.width;
+        h = rect.height;
+        cv.width = w * dpr;
+        cv.height = h * dpr;
+        cv.style.width = `${w}px`;
+        cv.style.height = `${h}px`;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+
+      function seed() {
+        particles.length = 0;
+        for (let i = 0; i < qty; i += 1) {
+          particles.push({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            vx: (Math.random() - 0.5) * 0.14,
+            vy: (Math.random() - 0.5) * 0.14,
+            r: 1.1 + Math.random() * 1.4,
+            p: Math.random() * Math.PI * 2,
+          });
+        }
+      }
+
+      function spawnPulse() {
+        const a = Math.floor(Math.random() * particles.length);
+        const close = particles
+          .map((_, i) => i)
+          .filter((i) => i !== a && ((particles[a].x - particles[i].x) ** 2 + (particles[a].y - particles[i].y) ** 2) < maxDist ** 2);
+        if (!close.length) return;
+        pulses.push({ a, b: close[Math.floor(Math.random() * close.length)], t: 0, dur: 1300 + Math.random() * 1500 });
+      }
+
+      fit();
+      seed();
+      new ResizeObserver(() => {
+        fit();
+        seed();
+      }).observe(sig);
+
+      let last = performance.now();
+      let pulseTimer = 0;
+      function draw(now) {
+        const dt = now - last;
+        last = now;
+        pulseTimer += dt;
+        if (pulseTimer > 320) {
+          spawnPulse();
+          pulseTimer = 0;
+        }
+        ctx.clearRect(0, 0, w, h);
+        particles.forEach((p) => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.p += 0.012;
+          if (p.x < 0 || p.x > w) p.vx *= -1;
+          if (p.y < 0 || p.y > h) p.vy *= -1;
+        });
+
+        for (let i = 0; i < particles.length; i += 1) {
+          for (let j = i + 1; j < particles.length; j += 1) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const d2 = dx * dx + dy * dy;
+            if (d2 > maxDist * maxDist) continue;
+            const alpha = (1 - Math.sqrt(d2) / maxDist) * 0.22;
+            ctx.strokeStyle = `rgba(192, 132, 252, ${alpha})`;
+            ctx.lineWidth = 0.65;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+
+        for (let i = pulses.length - 1; i >= 0; i -= 1) {
+          const pulse = pulses[i];
+          pulse.t += dt;
+          const prog = pulse.t / pulse.dur;
+          if (prog >= 1) {
+            pulses.splice(i, 1);
+            continue;
+          }
+          const a = particles[pulse.a];
+          const b = particles[pulse.b];
+          const x = a.x + (b.x - a.x) * prog;
+          const y = a.y + (b.y - a.y) * prog;
+          const fade = Math.sin(prog * Math.PI);
+          ctx.strokeStyle = `rgba(216, 180, 254, ${0.42 * fade})`;
+          ctx.lineWidth = 1.25;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+          ctx.fillStyle = `rgba(56, 248, 214, ${0.86 * fade})`;
+          ctx.shadowColor = 'rgba(56, 248, 214, 0.86)';
+          ctx.shadowBlur = 12;
+          ctx.beginPath();
+          ctx.arc(x, y, 2.4, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        }
+
+        particles.forEach((p) => {
+          const glow = 0.5 + Math.sin(p.p) * 0.24;
+          ctx.fillStyle = `rgba(237, 224, 255, ${0.66 * glow})`;
+          ctx.shadowColor = 'rgba(192, 132, 252, 0.72)';
+          ctx.shadowBlur = 8;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        });
+        requestAnimationFrame(draw);
+      }
+
+      requestAnimationFrame(draw);
+    }
+
+    initNeuralCanvas();
 
     function setPos(t) {
       bot.style.setProperty('--bx', t.x);
@@ -249,6 +385,17 @@
     background-position: 9% 22%, 72% 42%, 51% 78%;
     background-size: 110px 58px, 142px 76px, 190px 96px;
     mix-blend-mode: screen;
+  }
+
+  .mrz-neural-canvas {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    opacity: 0.72;
+    mix-blend-mode: screen;
+    pointer-events: none;
   }
 
   .mrz-sign-inner {
