@@ -1,5 +1,6 @@
 import GlobalBot from "./ui/GlobalBot";
 import FrontendLab from "./ui/FrontendLab";
+import NeuralWeb from "./ui/NeuralWeb";
 
 const stack = [
   "Next.js",
@@ -75,15 +76,15 @@ const metrics = [
 ];
 
 export default function Home() {
+
+
   return (
     <main className="site-shell">
       <GlobalBot />
 
       <section className="hero" id="inicio">
         <div className="neural-bg" aria-hidden="true">
-          {Array.from({ length: 16 }, (_, i) => (
-            <span key={i} />
-          ))}
+          <NeuralWeb variant="hero" density={110} speed={0.15} />
         </div>
         <nav className="nav">
           <a href="#inicio" className="brand">
@@ -190,9 +191,7 @@ export default function Home() {
 
       <section className="signature" id="contacto">
         <div className="sig-neural" aria-hidden="true">
-          {Array.from({ length: 22 }, (_, i) => (
-            <span key={i} />
-          ))}
+          <NeuralWeb variant="sig" density={70} speed={0.12} />
         </div>
         <div className="sig-content">
           <h2>
