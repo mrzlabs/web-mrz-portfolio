@@ -1,8 +1,17 @@
 <div class="mrz-signature" aria-labelledby="built-title">
   <canvas class="mrz-neural-canvas" aria-hidden="true"></canvas>
   <button class="mrz-bot" type="button" aria-label="Abrir propuesta mrzlabs">
-    <span></span>
-    <i></i>
+    <i class="bot-antenna"></i>
+    <span class="bot-head">
+      <i class="bot-eye bot-eye-left"></i>
+      <i class="bot-eye bot-eye-right"></i>
+      <i class="bot-mouth"></i>
+    </span>
+    <span class="bot-body">
+      <i class="bot-arm bot-arm-left"></i>
+      <i class="bot-arm bot-arm-right"></i>
+      <i class="bot-core"></i>
+    </span>
   </button>
   <div class="mrz-build-map" aria-hidden="true">
     <svg class="net-routes" viewBox="0 0 1000 190" preserveAspectRatio="none">
@@ -642,6 +651,143 @@
 
   .mrz-bot.hop {
     animation: botBreathe 3.4s ease-in-out infinite, botHop 0.42s cubic-bezier(0.3, 1.4, 0.5, 1);
+  }
+
+  .mrz-bot {
+    width: 56px;
+    height: 78px;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    filter: drop-shadow(0 0 16px rgba(192, 132, 252, 0.7));
+    opacity: 0.82;
+  }
+
+  .mrz-bot::before,
+  .mrz-bot::after {
+    display: none;
+  }
+
+  .mrz-bot .bot-antenna {
+    position: absolute;
+    left: 50%;
+    top: -12px;
+    bottom: auto;
+    width: 3px;
+    height: 14px;
+    margin-left: -1.5px;
+    border-radius: 2px;
+    background: rgba(233, 220, 255, 0.85);
+    box-shadow: none;
+  }
+
+  .mrz-bot .bot-antenna::after {
+    content: "";
+    position: absolute;
+    left: -5px;
+    top: -10px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #c084fc;
+    box-shadow: 0 0 14px #c084fc;
+    animation: botEye 2.4s ease-in-out infinite;
+  }
+
+  .mrz-bot .bot-head {
+    position: relative;
+    left: auto;
+    top: auto;
+    display: block;
+    width: 56px;
+    height: 36px;
+    border: 1.5px solid rgba(233, 220, 255, 0.55);
+    border-radius: 14px 14px 10px 10px;
+    background: linear-gradient(180deg, rgba(233, 220, 255, 0.32), rgba(124, 58, 237, 0.28));
+    backdrop-filter: blur(8px);
+  }
+
+  .mrz-bot .bot-head::before,
+  .mrz-bot .bot-head::after {
+    content: none;
+  }
+
+  .mrz-bot .bot-eye {
+    position: absolute;
+    top: 13px;
+    bottom: auto;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #38f8d6;
+    box-shadow: 0 0 10px #38f8d6;
+  }
+
+  .mrz-bot .bot-eye-left { left: 13px; }
+  .mrz-bot .bot-eye-right { right: 13px; left: auto; }
+
+  .mrz-bot .bot-mouth {
+    position: absolute;
+    left: 50%;
+    bottom: 7px;
+    width: 16px;
+    height: 3px;
+    margin-left: -8px;
+    border-radius: 3px;
+    background: rgba(56, 248, 214, 0.7);
+    box-shadow: none;
+  }
+
+  .mrz-bot .bot-body {
+    position: relative;
+    left: auto;
+    top: auto;
+    display: block;
+    width: 44px;
+    height: 30px;
+    margin: 4px auto 0;
+    border: 1.5px solid rgba(233, 220, 255, 0.5);
+    border-radius: 10px 10px 16px 16px;
+    background: linear-gradient(180deg, rgba(124, 58, 237, 0.3), rgba(45, 20, 90, 0.5));
+    backdrop-filter: blur(8px);
+  }
+
+  .mrz-bot .bot-body::before,
+  .mrz-bot .bot-body::after {
+    content: none;
+  }
+
+  .mrz-bot .bot-arm {
+    position: absolute;
+    top: 5px;
+    bottom: auto;
+    width: 4px;
+    height: 18px;
+    border-radius: 2px;
+    background: rgba(233, 220, 255, 0.5);
+    box-shadow: none;
+  }
+
+  .mrz-bot .bot-arm-left { left: -6px; transform: rotate(14deg); }
+  .mrz-bot .bot-arm-right { right: -6px; left: auto; transform: rotate(-14deg); }
+
+  .mrz-bot .bot-core {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    bottom: auto;
+    width: 10px;
+    height: 10px;
+    margin: -5px 0 0 -5px;
+    border-radius: 50%;
+    background: #c084fc;
+    box-shadow: 0 0 12px #c084fc;
+    animation: botCore 2.2s ease-in-out infinite;
+  }
+
+  @keyframes botCore {
+    0%, 100% { opacity: 0.55; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.28); }
   }
 
   .mrz-build-map {
